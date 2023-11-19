@@ -1,0 +1,155 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.edu.service;
+
+import com.edu.entity.NhanVien;
+import com.edu.utils.DBConnect;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *
+ * @author Hoàng Chi
+ */
+public class NhanVienService {
+
+    Connection con = null;
+    PreparedStatement ps = null;
+    String sql = null;
+    ResultSet rs = null;
+
+    public List<NhanVien> getAll() {
+        sql = "SELECT [ID] ,[HoTen] ,[GioiTinh] ,[SDT]  ,[Email] , [ChucVu] FROM [dbo].[NhanVien]";
+        List<NhanVien> listnv = new ArrayList<>();
+        try {
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                NhanVien nv = new NhanVien(rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(5),
+                        rs.getString(3),
+                        rs.getString(6),
+                        rs.getInt(4));
+                listnv.add(nv);
+            }
+            return listnv;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public int deleteNhanVien(String id) {
+        sql = "DELETE FROM [dbo].[NhanVien] WHERE [ID] = ?";
+        try {
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, id);
+            return ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public int update(String id, NhanVien nv) {
+        sql = "UPDATE [dbo].[NhanVien] SET [ID] = ?,[HoTen] = ?,[GioiTinh] = ?,[SDT] = ?,[Email] = ?,[ChucVu] = ? WHERE [ID] = ?";
+        try {
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, nv.getIdNhanVien());
+            ps.setObject(2, nv.getHoTen());
+            ps.setObject(3, nv.getGioiTinh());
+            ps.setObject(4, nv.getSdt());
+            ps.setObject(5, nv.getEmail());
+            ps.setObject(6, nv.getChucVu());
+            ps.setObject(7, id);
+            return ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public int addNhanVien(NhanVien nv){
+        sql = "INSERT INTO [dbo].[NhanVien]([ID],[HoTen],[GioiTinh],[SDT],[Email],[ChucVu]) VALUES (?,?,?,?,?,?)";
+        try {
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, nv.getIdNhanVien());
+            ps.setObject(2, nv.getHoTen());
+            ps.setObject(3, nv.getGioiTinh());
+            ps.setObject(4, nv.getSdt());
+            ps.setObject(5, nv.getEmail());
+            ps.setObject(6, nv.getChucVu());
+            return ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+    
+    
+    
+    public List<NhanVien> tim(String ten) {
+        try {
+            String sql = "SELECT [ID] ,[HoTen] ,[GioiTinh] ,[SDT]  ,[Email] , [ChucVu] FROM NhanVien WHERE [HoTen] LIKE ?";
+            try {
+                con = DBConnect.getConnection();
+                ps = con.prepareStatement(sql);
+                rs = ps.executeQuery();
+                ps.setObject(1, "%" + ten + "%");
+                List<NhanVien> listnv = new ArrayList<>();
+                while (rs.next()) {
+                    NhanVien nv = new NhanVien();
+                    nv.setIdNhanVien(rs.getString("ID"));
+                    nv.setHoTen(rs.getString("HoTen"));
+                    nv.setGioiTinh(rs.getString("GioiTinh"));
+                    nv.setSdt(rs.getInt("SDT"));
+                    nv.setEmail(rs.getString("Email"));
+                    nv.setChucVu(rs.getString("ChucVu"));
+
+                    listnv.add(nv);
+                }
+                return listnv;
+            } catch (Exception e) {
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<NhanVien> selectHoTen(String ten) {
+        try {
+            String sql = "SELECT [ID] ,[HoTen] ,[GioiTinh] ,[SDT]  ,[Email] , [ChucVu] FROM NhanVien WHERE [HoTen] LIKE ?";
+            try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
+                ps.setObject(1, "%" + ten + "%");
+                try (ResultSet rs = ps.executeQuery();) {
+                    List<NhanVien> list = new ArrayList<>();
+                    while (rs.next()) {
+                        NhanVien nv = new NhanVien();
+                        nv.setIdNhanVien(rs.getString("ID"));
+                        nv.setHoTen(rs.getString("HoTen"));
+                        nv.setGioiTinh(rs.getString("GioiTinh"));
+                        nv.setSdt(rs.getInt("SDT"));
+                        nv.setEmail(rs.getString("Email"));
+                        nv.setChucVu(rs.getString("ChucVu"));
+
+                        list.add(nv);
+                    }
+                    return list;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+}
