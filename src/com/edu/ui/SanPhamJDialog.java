@@ -73,7 +73,7 @@ public class SanPhamJDialog extends javax.swing.JDialog {
     }
 
     public SanPham reaForm() {
-        return new SanPham(txtMaSP.getText(), txtTenSP.getText(), lblAnh.getToolTipText(), Integer.parseInt(txtGiaBan.getText()), Integer.parseInt(txtSoLuong.getText()));
+        return new SanPham(txtMaSP.getText(), txtTenSP.getText(), lblAnh.getToolTipText(), Float.parseFloat(txtGiaBan.getText()), Integer.parseInt(txtSoLuong.getText()));
     }
 
     boolean checkForm() {
@@ -234,7 +234,7 @@ public class SanPhamJDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)

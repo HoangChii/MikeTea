@@ -29,7 +29,7 @@ public class SanPhamService {
                 SanPham sp = new SanPham(rs.getString(1),
                         rs.getString(2),
                         rs.getString(5),
-                        rs.getInt(4),
+                        rs.getFloat(4),
                         rs.getInt(3));
                 listsp.add(sp);
             }

@@ -12,13 +12,13 @@ public class SanPham {
     private String idSanPham;
     private String tenSP;
     private String moTa;
-    private int giaBan;
+    private float giaBan;
     private int soLuong;
 
     public SanPham() {
     }
 
-    public SanPham(String idSanPham, String tenSP, String moTa, int giaBan, int soLuong) {
+    public SanPham(String idSanPham, String tenSP, String moTa, float giaBan, int soLuong) {
         this.idSanPham = idSanPham;
         this.tenSP = tenSP;
         this.moTa = moTa;
@@ -50,11 +50,11 @@ public class SanPham {
         this.moTa = moTa;
     }
 
-    public int getGiaBan() {
+    public float getGiaBan() {
         return giaBan;
     }
 
-    public void setGiaBan(int giaBan) {
+    public void setGiaBan(float giaBan) {
         this.giaBan = giaBan;
     }
 
@@ -65,6 +65,7 @@ public class SanPham {
     public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
     }
+
     
     public Object[] toData(){
         return new Object[] {idSanPham, tenSP, soLuong, giaBan, moTa};

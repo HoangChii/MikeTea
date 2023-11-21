@@ -118,7 +118,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="txtSoLuong" min="-2" pref="291" max="-2" attributes="0"/>
-                          <Component id="lblAnh" min="-2" pref="176" max="-2" attributes="0"/>
+                          <Component id="lblAnh" min="-2" pref="145" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
