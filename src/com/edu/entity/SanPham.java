@@ -11,17 +11,17 @@ package com.edu.entity;
 public class SanPham {
     private String idSanPham;
     private String tenSP;
-    private String moTa;
+    private String hinh;
     private float giaBan;
     private int soLuong;
 
     public SanPham() {
     }
 
-    public SanPham(String idSanPham, String tenSP, String moTa, float giaBan, int soLuong) {
+    public SanPham(String idSanPham, String tenSP, String hinh, float giaBan, int soLuong) {
         this.idSanPham = idSanPham;
         this.tenSP = tenSP;
-        this.moTa = moTa;
+        this.hinh = hinh;
         this.giaBan = giaBan;
         this.soLuong = soLuong;
     }
@@ -42,12 +42,12 @@ public class SanPham {
         this.tenSP = tenSP;
     }
 
-    public String getMoTa() {
-        return moTa;
+    public String getHinh() {
+        return hinh;
     }
 
-    public void setMoTa(String moTa) {
-        this.moTa = moTa;
+    public void setHinh(String hinh) {
+        this.hinh = hinh;
     }
 
     public float getGiaBan() {
@@ -67,7 +67,9 @@ public class SanPham {
     }
 
     
+
+    
     public Object[] toData(){
-        return new Object[] {idSanPham, tenSP, soLuong, giaBan, moTa};
+        return new Object[] {idSanPham, tenSP, giaBan, soLuong, hinh};
     }
 }

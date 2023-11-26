@@ -19,7 +19,7 @@ public class SanPhamService {
     String sql = null;
     
     public List<SanPham> getAll(){
-        sql = "SELECT ID ,TenSanPham ,SoLuong, GiaBan  ,MoTa FROM dbo.SanPham";
+        sql = "SELECT ID ,TenSanPham ,GiaBan ,SoLuong ,MoTa FROM dbo.SanPham";
         List<SanPham> listsp = new ArrayList<>();
         try {
             con = DBConnect.getConnection();
@@ -29,8 +29,8 @@ public class SanPhamService {
                 SanPham sp = new SanPham(rs.getString(1),
                         rs.getString(2),
                         rs.getString(5),
-                        rs.getFloat(4),
-                        rs.getInt(3));
+                        rs.getFloat(3),
+                        rs.getInt(4));
                 listsp.add(sp);
             }
             return listsp;
@@ -62,7 +62,7 @@ public class SanPhamService {
             ps.setObject(2, sp.getTenSP());
             ps.setObject(3, sp.getSoLuong());
             ps.setObject(4, sp.getGiaBan());
-            ps.setObject(5, sp.getMoTa());
+            ps.setObject(5, sp.getHinh());
             return ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -79,7 +79,7 @@ public class SanPhamService {
             ps.setObject(2, sp.getTenSP());
             ps.setObject(3, sp.getSoLuong());
             ps.setObject(4, sp.getGiaBan());
-            ps.setObject(5, sp.getMoTa());
+            ps.setObject(5, sp.getHinh());
             ps.setObject(6, ma);
             return ps.executeUpdate();
         } catch (Exception e) {
@@ -112,6 +112,7 @@ public class SanPhamService {
         return check;
     }
     
+    
     public List<SanPham> selectTen(String ten) {
         try {
             String sql = "SELECT ID ,TenSanPham ,SoLuong ,GiaBan ,MoTa FROM SanPham WHERE TenSanPham LIKE ?";
@@ -125,7 +126,7 @@ public class SanPhamService {
                         nv.setTenSP(rs.getString("TenSanPham"));
                         nv.setSoLuong(rs.getInt("SoLuong"));
                         nv.setGiaBan(rs.getInt("GiaBan"));
-                        nv.setMoTa(rs.getString("MoTa"));
+                        nv.setHinh(rs.getString("MoTa"));
 
                         list.add(nv); 
                     }

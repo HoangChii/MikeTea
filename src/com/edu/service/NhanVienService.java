@@ -22,7 +22,7 @@ public class NhanVienService {
     ResultSet rs = null;
 
     public List<NhanVien> getAll() {
-        sql = "SELECT [ID] ,[HoTen] ,[GioiTinh] ,[SDT]  ,[Email] , [ChucVu] FROM [dbo].[NhanVien]";
+        sql = "SELECT [ID] ,[HoTen] ,[GioiTinh] ,[ChucVu] ,[SDT]  ,[Email] FROM [dbo].[NhanVien]";
         List<NhanVien> listnv = new ArrayList<>();
         try {
             con = DBConnect.getConnection();
@@ -31,10 +31,10 @@ public class NhanVienService {
             while (rs.next()) {
                 NhanVien nv = new NhanVien(rs.getString(1),
                         rs.getString(2),
-                        rs.getString(5),
-                        rs.getString(3),
                         rs.getString(6),
-                        rs.getInt(4));
+                        rs.getString(3), 
+                        rs.getString(4), 
+                        rs.getInt(5));
                 listnv.add(nv);
             }
             return listnv;
@@ -94,38 +94,30 @@ public class NhanVienService {
         }
     }
     
-    
-    
-    public List<NhanVien> tim(String ten) {
-        try {
-            String sql = "SELECT [ID] ,[HoTen] ,[GioiTinh] ,[SDT]  ,[Email] , [ChucVu] FROM NhanVien WHERE [HoTen] LIKE ?";
-            try {
-                con = DBConnect.getConnection();
-                ps = con.prepareStatement(sql);
-                rs = ps.executeQuery();
-                ps.setObject(1, "%" + ten + "%");
-                List<NhanVien> listnv = new ArrayList<>();
-                while (rs.next()) {
-                    NhanVien nv = new NhanVien();
-                    nv.setIdNhanVien(rs.getString("ID"));
-                    nv.setHoTen(rs.getString("HoTen"));
-                    nv.setGioiTinh(rs.getString("GioiTinh"));
-                    nv.setSdt(rs.getInt("SDT"));
-                    nv.setEmail(rs.getString("Email"));
-                    nv.setChucVu(rs.getString("ChucVu"));
-
-                    listnv.add(nv);
-                }
-                return listnv;
-            } catch (Exception e) {
-                return null;
+    public boolean testTrung(String ma) {
+        List<NhanVien> lst = this.getAll();
+        boolean check = false;
+        for (NhanVien nv : lst) {
+            if (nv.getIdNhanVien().equals(ma)) {
+                check = true;
+                break;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
         }
+        return check;
     }
-
+    
+    public boolean testTrungTen(String ten){
+       List<NhanVien> lst = this.getAll();
+        boolean check = false;
+        for (NhanVien nv : lst) {
+            if(nv.getHoTen().equals(ten)){
+                check = true;
+                break;
+            }
+        }
+        return check;
+    }
+    
     public List<NhanVien> selectHoTen(String ten) {
         try {
             String sql = "SELECT [ID] ,[HoTen] ,[GioiTinh] ,[SDT]  ,[Email] , [ChucVu] FROM NhanVien WHERE [HoTen] LIKE ?";
