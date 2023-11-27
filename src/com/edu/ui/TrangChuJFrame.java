@@ -114,7 +114,7 @@ public class TrangChuJFrame extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
         btnBanHang.setBackground(new java.awt.Color(153, 255, 255));
-        btnBanHang.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+        btnBanHang.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btnBanHang.setForeground(new java.awt.Color(255, 153, 153));
         btnBanHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/edu/icon/banhang.png"))); // NOI18N
         btnBanHang.setText("Bán hàng");
@@ -126,14 +126,14 @@ public class TrangChuJFrame extends javax.swing.JFrame {
         });
 
         btnTrangChu.setBackground(new java.awt.Color(153, 255, 255));
-        btnTrangChu.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+        btnTrangChu.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btnTrangChu.setForeground(new java.awt.Color(255, 153, 153));
         btnTrangChu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/edu/icon/trangchu_1.png"))); // NOI18N
         btnTrangChu.setText("Trang chủ");
         btnTrangChu.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         btnHoaDon.setBackground(new java.awt.Color(153, 255, 255));
-        btnHoaDon.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+        btnHoaDon.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btnHoaDon.setForeground(new java.awt.Color(255, 153, 153));
         btnHoaDon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/edu/icon/hoadon.png"))); // NOI18N
         btnHoaDon.setText("Hóa đơn");
@@ -145,7 +145,7 @@ public class TrangChuJFrame extends javax.swing.JFrame {
         });
 
         btnSanPham.setBackground(new java.awt.Color(153, 255, 255));
-        btnSanPham.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+        btnSanPham.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btnSanPham.setForeground(new java.awt.Color(255, 153, 153));
         btnSanPham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/edu/icon/sanpham.png"))); // NOI18N
         btnSanPham.setText("Sản phẩm");
@@ -157,7 +157,7 @@ public class TrangChuJFrame extends javax.swing.JFrame {
         });
 
         btnKhuyenMai.setBackground(new java.awt.Color(153, 255, 255));
-        btnKhuyenMai.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+        btnKhuyenMai.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btnKhuyenMai.setForeground(new java.awt.Color(255, 153, 153));
         btnKhuyenMai.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/edu/icon/khuyenmai.png"))); // NOI18N
         btnKhuyenMai.setText("Khuyến mãi");
@@ -169,7 +169,7 @@ public class TrangChuJFrame extends javax.swing.JFrame {
         });
 
         btnNhanVien.setBackground(new java.awt.Color(153, 255, 255));
-        btnNhanVien.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+        btnNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btnNhanVien.setForeground(new java.awt.Color(255, 153, 153));
         btnNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/edu/icon/nhanvien.png"))); // NOI18N
         btnNhanVien.setText("Nhân Viên");
@@ -223,7 +223,8 @@ public class TrangChuJFrame extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(190, 249, 249));
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
-        btnLogOut.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnLogOut.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        btnLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/edu/icon/Log out.png"))); // NOI18N
         btnLogOut.setText("Đăng Xuất");
         btnLogOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -231,7 +232,7 @@ public class TrangChuJFrame extends javax.swing.JFrame {
             }
         });
 
-        lblDongHo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblDongHo.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         lblDongHo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/edu/icon/Alarm.png"))); // NOI18N
         lblDongHo.setText("12:00   09-11-2023");
 
@@ -249,11 +250,13 @@ public class TrangChuJFrame extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(btnLogOut)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 306, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblDongHo)
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(lblDongHo)))
+                .addGap(28, 28, 28)
                 .addComponent(jLabel2)
                 .addGap(24, 24, 24))
         );
@@ -267,7 +270,7 @@ public class TrangChuJFrame extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnLogOut)
                         .addComponent(lblDongHo)))
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -281,7 +284,7 @@ public class TrangChuJFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(140, 172, Short.MAX_VALUE)
+                        .addGap(140, 200, Short.MAX_VALUE)
                         .addComponent(jButton8)
                         .addGap(197, 197, 197))))
         );
