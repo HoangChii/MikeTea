@@ -58,4 +58,30 @@ public class HoaDonService {
             return 0;
         }
     }
+    public List<HoaDon> selectHoTen(String Id) {
+        try {
+            String sql = "SELECT [ID] ,[KhuyenMai] ,[NgayTao] ,[NguoiTao]  ,[SoLuong] , [TongTien] FROM HoaDon WHERE [ID] LIKE ?";
+            try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
+                ps.setObject(1, "%" + Id + "%");
+                try (ResultSet rs = ps.executeQuery();) {
+                    List<HoaDon> list = new ArrayList<>();
+                    while (rs.next()) {
+                        HoaDon hd = new HoaDon();
+                        hd.setIdHoaDon(rs.getString("ID"));
+                        hd.setKhuyenMai(rs.getString("KhuyenMai"));
+                        hd.setNgayTao(rs.getString("NgayTao"));
+                        hd.setNguoiTao(rs.getString("NguoiTao"));
+                        hd.setSoLuong(rs.getInt("SoLuong"));
+                        hd.setTongTien(rs.getFloat("TongTien"));
+
+                        list.add(hd);
+                    }
+                    return list;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
