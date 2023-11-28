@@ -9,20 +9,27 @@ import com.edu.utils.DBConnect;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 public class KhuyenMaiService {
+    
     Connection con = null;
     PreparedStatement ps = null;
     String sql = null;
     ResultSet rs = null;
+    
     public List<KhuyenMai> getAll(){
-        sql = "select id, tenkm, giatri, thoigianbatdau, thoigianketthuc from KhuyenMai";
+        sql = "SELECT ID ,TenKM ,GiaTri ,ThoiGianBatDau ,ThoiGianKetThuc FROM dbo.KhuyenMai";
         List<KhuyenMai> listkm = new ArrayList<>();
         try{
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while(rs.next()){
-                KhuyenMai km = new KhuyenMai(rs.getString(1), rs.getString(2),rs.getString(3), rs.getDate(4), rs.getDate(5));  
+                KhuyenMai km = new KhuyenMai(rs.getString(1),
+                        rs.getString(2), 
+                        rs.getFloat(3), 
+                        rs.getDate(4),
+                        rs.getDate(5));  
                 listkm.add(km);
             }
             return listkm;
@@ -31,8 +38,9 @@ public class KhuyenMaiService {
             return null;
         }
     }
+    
     public int deleteKhuyenMai(String maKM){
-        sql = "delete from KhuyenMai where id = ?";
+        sql = "DELETE FROM KhuyenMai WHERE ID = ?";
         try{
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -43,14 +51,15 @@ public class KhuyenMaiService {
             return 0;
         }  
     }
+    
     public int updateKhuyenMai(String maKM, KhuyenMai km){
-        sql = "update KhuyenMai set id = ?, tenkm = ?, idloaikhuyenmai =?, thoigianbatdau = ?, thoigianketthuc = ? where id = ?";
+        sql = "UPDATE KhuyenMai SET ID = ?, TenKM = ?, GiaTri =?, ThoiGianBatDau = ?, ThoiGianKetThuc = ? WHERE ID = ?";
        try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             ps.setObject(1, km.getMaKM());
             ps.setObject(2, km.getTenKM());
-            ps.setObject(3, km.getIDLoaiKM());
+            ps.setObject(3, km.getGiaTri());
             ps.setObject(4, km.getThoiGianBatDau());
             ps.setObject(5, km.getThoiGianKetThuc());
             ps.setObject(6, maKM);
@@ -60,14 +69,15 @@ public class KhuyenMaiService {
             return 0;
         } 
     }
+    
     public int addKhuyenMai(KhuyenMai km ){
-        sql = "insert into KhuyenMai (id, tenkm, idloaikhuyenmai, thoigianbatdau, thoigianketthuc) values (?, ?, ?, ?, ?)";
+        sql = "INSERT INTO KhuyenMai (ID ,TenKM ,GiaTri ,ThoiGianBatDau ,ThoiGianKetThuc) values (?, ?, ?, ?, ?)";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             ps.setObject(1, km.getMaKM());
             ps.setObject(2, km.getTenKM());
-            ps.setObject(3, km.getIDLoaiKM());
+            ps.setObject(3, km.getGiaTri());
             ps.setObject(4, km.getThoiGianBatDau());
             ps.setObject(5, km.getThoiGianKetThuc());
             return ps.executeUpdate();
@@ -76,6 +86,7 @@ public class KhuyenMaiService {
             return 0;
         } 
     }
+    
     public boolean testTrung(String ma){
         List<KhuyenMai> lst = this.getAll();
         boolean check = false;
@@ -101,7 +112,7 @@ public class KhuyenMaiService {
     }
     public List<KhuyenMai> selectKhuyenMai(String maKM){
         try{
-            String sql = "select id, idloaikhuyenmai, tenkm, thoigianbatdau, thoigianketthuc from KhuyenMai where id like ?";
+            String sql = "SELECT ID ,TenKM ,GiaTri ,ThoiGianBatDau ,ThoiGianKetThuc FROM KhuyenMai WHERE ID LIKE ?";
             try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
                 ps.setObject(1, "%" + maKM + "%");
                 try (ResultSet rs = ps.executeQuery();) {
@@ -110,7 +121,7 @@ public class KhuyenMaiService {
                         KhuyenMai km = new KhuyenMai();
                         km.setMaKM(rs.getString("ID"));
                         km.setTenKM(rs.getString("tenKM"));
-                        km.setIDLoaiKM(rs.getString("IDLoaiKhuyenMai"));
+                        km.setGiaTri(rs.getFloat("GiaTri"));
                         km.setThoiGianBatDau(rs.getDate("ThoiGianBatDau"));
                         km.setThoiGianKetThuc(rs.getDate("ThoiGianKetThuc"));
                         list.add(km);
@@ -122,6 +133,27 @@ public class KhuyenMaiService {
             e.printStackTrace();
             return null;
         }
-        
+    }
+    
+    public KhuyenMai getByTen(String ma){
+        sql = "SELECT ID ,TenKM ,GiaTri ,ThoiGianBatDau ,ThoiGianKetThuc FROM KhuyenMai WHERE ID LIKE ?";
+        try{
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, "%" + ma + "%");
+            rs = ps.executeQuery();
+            while(rs.next()){
+                KhuyenMai km = new KhuyenMai(rs.getString(1),
+                        rs.getString(2),
+                        rs.getFloat(3),
+                        rs.getDate(4),
+                        rs.getDate(5));  
+                return km;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+        return null;
     }
 }

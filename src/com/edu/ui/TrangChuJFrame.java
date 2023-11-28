@@ -339,7 +339,7 @@ public class TrangChuJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
-
+        dispose();
         new DangNhapJDialog(this, true).setVisible(true);
         
     }//GEN-LAST:event_btnLogOutActionPerformed

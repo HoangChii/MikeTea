@@ -43,19 +43,15 @@ public class KhuyenMaiJDialog extends javax.swing.JDialog {
         KhuyenMai km = service.getAll().get(index);
         txtMaKM.setText(km.getMaKM());
         txtTenKM.setText(km.getTenKM());
-        txtGiaTri.setText(km.getIDLoaiKM());
+        txtGiaTri.setText(String.valueOf(km.getGiaTri()));
         txtThoiGianStart.setText(km.getThoiGianBatDau()+"");
         txtThoiGianEnd.setText(km.getThoiGianKetThuc()+"");
     }
-    KhuyenMai readForm(){
-        KhuyenMai km = new KhuyenMai();
-        String maKM = txtMaKM.getText();
-        String tenKM = txtTenKM.getText();
-        String idKM = txtGiaTri.getText();
-        Date ngaybdau = parseDate(txtThoiGianStart.getText());
-        Date ngaykthuc = parseDate(txtThoiGianEnd.getText());
-        return new KhuyenMai(maKM, tenKM, idKM, ngaybdau, ngaykthuc);
+    
+    public KhuyenMai readForm(){
+        return new KhuyenMai(txtMaKM.getText(), txtTenKM.getText(), Float.parseFloat(txtGiaTri.getText()), parseDate(txtThoiGianStart.getText()), parseDate(txtThoiGianEnd.getText()));
     }
+
      private String date2String(Date date) {
         return sdf.format(date);
      }
@@ -266,7 +262,7 @@ public class KhuyenMaiJDialog extends javax.swing.JDialog {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtThoiGianEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnClear, btnSua, btnThem, btnXoa});
@@ -289,18 +285,18 @@ public class KhuyenMaiJDialog extends javax.swing.JDialog {
 
         tblKhuyenMai.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Mã KM", "Tên KM", "Giá Trị", "TG Bắt Đầu", "TG Kết Thúc"
+                "Mã KM", "Tên KM", "Giá Trị"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -431,8 +427,14 @@ public class KhuyenMaiJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void tblKhuyenMaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhuyenMaiMouseClicked
-        index = tblKhuyenMai.getSelectedRow();
-        showData(index);
+        index = tblKhuyenMai.rowAtPoint(evt.getPoint());
+        String x = tblKhuyenMai.getValueAt(index, 0).toString();
+        KhuyenMai km = service.getByTen(x);
+        txtMaKM.setText(km.getMaKM());
+        txtTenKM.setText(km.getTenKM());
+        txtGiaTri.setText(String.valueOf(km.getGiaTri()));
+        txtThoiGianStart.setText(km.getThoiGianBatDau()+"");
+        txtThoiGianEnd.setText(km.getThoiGianKetThuc()+"");
     }//GEN-LAST:event_tblKhuyenMaiMouseClicked
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed

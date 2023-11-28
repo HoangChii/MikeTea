@@ -139,4 +139,26 @@ public class SanPhamService {
         }
     }
     
+    public SanPham getbyTen(String ten){
+        sql = "SELECT ID ,TenSanPham ,GiaBan ,SoLuong ,MoTa FROM dbo.SanPham Where TenSanPham like ?";
+        try {
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, "%" + ten + "%");
+            rs = ps.executeQuery();
+            while(rs.next()){
+                SanPham sp = new SanPham(rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(5),
+                        rs.getFloat(3),
+                        rs.getInt(4));
+                return sp;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return null;
+    }
+    
 }

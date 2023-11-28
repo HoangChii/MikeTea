@@ -13,17 +13,17 @@ import java.util.Date;
 public class KhuyenMai {
     private String maKM;
     private String tenKM;
-    private String IDLoaiKM;
+    private Float giaTri;
     private Date thoiGianBatDau;
     private Date thoiGianKetThuc;
 
     public KhuyenMai() {
     }
 
-    public KhuyenMai(String maKM, String tenKM, String IDLoaiKM, Date thoiGianBatDau, Date thoiGianKetThuc) {
+    public KhuyenMai(String maKM, String tenKM, Float giaTri, Date thoiGianBatDau, Date thoiGianKetThuc) {
         this.maKM = maKM;
         this.tenKM = tenKM;
-        this.IDLoaiKM = IDLoaiKM;
+        this.giaTri = giaTri;
         this.thoiGianBatDau = thoiGianBatDau;
         this.thoiGianKetThuc = thoiGianKetThuc;
     }
@@ -44,12 +44,12 @@ public class KhuyenMai {
         this.tenKM = tenKM;
     }
 
-    public String getIDLoaiKM() {
-        return IDLoaiKM;
+    public Float getGiaTri() {
+        return giaTri;
     }
 
-    public void setIDLoaiKM(String IDLoaiKM) {
-        this.IDLoaiKM = IDLoaiKM;
+    public void setGiaTri(Float giaTri) {
+        this.giaTri = giaTri;
     }
 
     public Date getThoiGianBatDau() {
@@ -67,7 +67,9 @@ public class KhuyenMai {
     public void setThoiGianKetThuc(Date thoiGianKetThuc) {
         this.thoiGianKetThuc = thoiGianKetThuc;
     }
+
+    
     public Object[] toData(){
-        return new Object[] {maKM, tenKM,IDLoaiKM,thoiGianBatDau, thoiGianKetThuc};
+        return new Object[] {maKM, tenKM,giaTri,thoiGianBatDau, thoiGianKetThuc};
     }
 }

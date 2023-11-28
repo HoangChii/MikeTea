@@ -43,6 +43,6 @@ public class XImage {
 
     public static ImageIcon read(String filename) {
         File path = new File("logos", filename);
-        return new ImageIcon(new ImageIcon(path.getAbsolutePath()).getImage().getScaledInstance(180, 180, Image.SCALE_DEFAULT));
+        return new ImageIcon(new ImageIcon(path.getAbsolutePath()).getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
     }
 }

@@ -21,7 +21,8 @@ public class HoaDonJDialog extends javax.swing.JDialog {
     private int index = -1;
     private HoaDonService service = new HoaDonService();
     private List<HoaDon> listhd = new ArrayList<>();
-
+    private HoaDon hd = new HoaDon();
+    
     public HoaDonJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -368,8 +369,15 @@ public class HoaDonJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
-        index = tblHoaDon.getSelectedRow();
-        showData(index);
+        index = tblHoaDon.rowAtPoint(evt.getPoint());
+        String x = tblHoaDon.getValueAt(index, 0).toString();
+        HoaDon hd = service.getBtTen(x);
+        txtMaHoaDon.setText(hd.getIdHoaDon());
+        txtTongTien.setText(String.valueOf(hd.getTongTien()));
+        txtNgayTao.setText(hd.getNgayTao());
+        txtNguoiTao.setText(hd.getNguoiTao());
+        txtKhuyenMai.setText(hd.getKhuyenMai());
+        txtSoLuong.setText(String.valueOf(hd.getSoLuong()));
     }//GEN-LAST:event_tblHoaDonMouseClicked
 
     private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed

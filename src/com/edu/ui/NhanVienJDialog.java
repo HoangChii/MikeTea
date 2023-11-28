@@ -500,8 +500,17 @@ public class NhanVienJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_rdoNhanVienActionPerformed
 
     private void tblNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNhanVienMouseClicked
-        index = tblNhanVien.getSelectedRow();
-        showData(index);
+        index = tblNhanVien.rowAtPoint(evt.getPoint());
+        String x = tblNhanVien.getValueAt(index, 1).toString();
+        NhanVien nv = service.getbyTen(x);
+        txtMaNV.setText(nv.getIdNhanVien());
+        txtTenNV.setText(nv.getHoTen());
+        rdoNam.setSelected(nv.isGioiTinh());
+        rdoNu.setSelected(!nv.isGioiTinh());
+        txtSDT.setText(String.valueOf(nv.getSdt()));
+        txtEmail.setText(nv.getEmail());
+        rdoQuanLy.setSelected(nv.isChucVu());
+        rdoNhanVien.setSelected(!nv.isChucVu());
     }//GEN-LAST:event_tblNhanVienMouseClicked
 
     private void rdoNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoNamActionPerformed

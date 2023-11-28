@@ -84,4 +84,27 @@ public class HoaDonService {
             return null;
         }
     }
+    
+    public HoaDon getBtTen(String ma) {
+        sql = "SELECT [ID]  ,[TongTien],[NgayTao],[NguoiTao], [KhuyenMai], [SoLuong] FROM [dbo].[HoaDon] WHERE ID LIKE ?";
+        try {
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, "%" + ma + "%");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                HoaDon hd = new HoaDon(rs.getString(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getInt(6));
+                return hd;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return null;
+    }
 }

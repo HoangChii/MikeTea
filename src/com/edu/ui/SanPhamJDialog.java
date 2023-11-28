@@ -251,7 +251,7 @@ public class SanPhamJDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -260,7 +260,7 @@ public class SanPhamJDialog extends javax.swing.JDialog {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
+                .addContainerGap(22, Short.MAX_VALUE)
                 .addComponent(jLabel8)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -433,8 +433,19 @@ public class SanPhamJDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSanPhamMouseClicked
-        index = tblSanPham.getSelectedRow();
-        showData(index);
+        index = tblSanPham.rowAtPoint(evt.getPoint());
+        String x = tblSanPham.getValueAt(index, 1).toString();
+        SanPham sp = service.getbyTen(x);
+        txtMaSP.setText(sp.getIdSanPham());
+        txtTenSP.setText(sp.getTenSP());
+        txtSoLuong.setText(String.valueOf(sp.getSoLuong()));
+        txtGiaBan.setText(String.valueOf(sp.getGiaBan()));
+        if (sp.getHinh()!= null) {
+            lblAnh.setToolTipText(sp.getHinh());
+            lblAnh.setIcon(XImage.read(sp.getHinh()));
+        } else {
+            lblAnh.setIcon(null);
+        }
     }//GEN-LAST:event_tblSanPhamMouseClicked
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
