@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Hoàng Chi
@@ -27,6 +28,7 @@ public class BanHangJDialog extends javax.swing.JDialog {
     private ToppingService servicetp = new ToppingService();
     private List<BanHang> listbh = new ArrayList<>();
     private LoaiSevice servicel = new LoaiSevice();
+
     /**
      * Creates new form NewJDialog
      */
@@ -34,36 +36,36 @@ public class BanHangJDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-        
+
         fillToTable(service.getAll());
         fillToTableTP(servicetp.getAllTP());
         fillToTableloai(servicel.getAllL());
     }
 
-    public void fillToTable(List<BanHang> list){
+    public void fillToTable(List<BanHang> list) {
         model = (DefaultTableModel) tblDoUong.getModel();
         model.setRowCount(0);
         for (BanHang banHang : list) {
-            model.addRow(banHang.toData());        
+            model.addRow(banHang.toData());
         }
     }
-    
-    public void fillToTableTP(List<Topping> list){
+
+    public void fillToTableTP(List<Topping> list) {
         model = (DefaultTableModel) tblTopping.getModel();
         model.setRowCount(0);
         for (Topping tp : list) {
-            model.addRow(tp.toData());        
+            model.addRow(tp.toData());
         }
     }
-    
-    public void fillToTableloai(List<Loai> list){
+
+    public void fillToTableloai(List<Loai> list) {
         model = (DefaultTableModel) tblLoai.getModel();
         model.setRowCount(0);
         for (Loai l : list) {
-            model.addRow(l.toData());        
+            model.addRow(l.toData());
         }
     }
-    
+
     public void showData(int index) {
         BanHang bh = service.getAll().get(index);
         txtTenSp.setText(bh.getTenSanPham());
@@ -71,22 +73,48 @@ public class BanHangJDialog extends javax.swing.JDialog {
         if (bh.getAnh() != null) {
             lblAnh.setToolTipText(bh.getAnh());
             lblAnh.setIcon(XImage.read(bh.getAnh()));
-        }else{
+        } else {
             lblAnh.setIcon(null);
         }
 
     }
+
     public void showDataTP(int index) {
         Topping tp = servicetp.getAllTP().get(index);
         txtTopping.setText(tp.getTenTopping());
         txtGiaTP.setText(String.valueOf(tp.getGiaTopping()));
     }
-  
+
     public void showDataLoai(int index) {
         Loai loai = servicel.getAllL().get(index);
         txtSize.setText(loai.getTenLoai());
         txtGiaSize.setText(String.valueOf(loai.getGiaLoai()));
     }
+
+    public boolean check() {
+        if (txtTenSp.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Trống Tên Món");
+            return false;
+        }
+        if (txtTopping.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Trống Topping");
+            return false;
+        }
+        if (txtSize.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Trống Size");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean check2() {
+        if (txtGiamGia.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Trống Giảm Giá");
+            return false;
+        }
+        return true;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -124,6 +152,8 @@ public class BanHangJDialog extends javax.swing.JDialog {
         btnOK2 = new javax.swing.JButton();
         txtGiaSize = new javax.swing.JTextField();
         txtSize = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        txtMaHD = new javax.swing.JTextField();
         pnlthemmon = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -218,6 +248,9 @@ public class BanHangJDialog extends javax.swing.JDialog {
             }
         });
 
+        jLabel13.setFont(new java.awt.Font("Serif", 0, 12)); // NOI18N
+        jLabel13.setText("Mã HĐ");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -265,7 +298,11 @@ public class BanHangJDialog extends javax.swing.JDialog {
                     .addComponent(txtGiaSize, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtMaHD, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
                 .addComponent(jLabel2)
                 .addGap(172, 172, 172))
             .addGroup(jPanel4Layout.createSequentialGroup()
@@ -278,8 +315,15 @@ public class BanHangJDialog extends javax.swing.JDialog {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel2)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel2))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel13)
+                            .addComponent(txtMaHD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -537,23 +581,27 @@ public class BanHangJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_tblToppingMouseClicked
 
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
-        String size; 
-        if (evt.getSource() == btnOK) {
-            Double gia = Double.parseDouble(txtGia.getText());
-            int soluong = Integer.parseInt(spnSoLuong.getValue().toString());
-            Double giaTP = Double.parseDouble(txtGiaTP.getText());
-            Double giaLoai = Double.parseDouble(txtGiaSize.getText());
-            txtTongTien.setText(Double.toString(gia*soluong+giaTP+giaLoai));
+        if (check()) {
+            if (evt.getSource() == btnOK) {
+                Double gia = Double.parseDouble(txtGia.getText());
+                int soluong = Integer.parseInt(spnSoLuong.getValue().toString());
+                Double giaTP = Double.parseDouble(txtGiaTP.getText());
+                Double giaLoai = Double.parseDouble(txtGiaSize.getText());
+                txtTongTien.setText(Double.toString(gia * soluong + giaTP + giaLoai));
+            }
         }
+
     }//GEN-LAST:event_btnOKActionPerformed
 
     private void btnOK2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOK2ActionPerformed
-        if (evt.getSource() == btnOK2) {
-            Double tongtien = Double.parseDouble(txtTongTien.getText());
-            Double giamgia = Double.parseDouble(txtGiamGia.getText());
-            
-            txtTongTienPhaiTra.setText(Double.toString(tongtien-giamgia));
+        if (check2()) {
+            if (evt.getSource() == btnOK2) {
+                Double tongtien = Double.parseDouble(txtTongTien.getText());
+                Double giamgia = Double.parseDouble(txtGiamGia.getText());
+                txtTongTienPhaiTra.setText(Double.toString(tongtien - giamgia));
+            }
         }
+
     }//GEN-LAST:event_btnOK2ActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
@@ -575,7 +623,7 @@ public class BanHangJDialog extends javax.swing.JDialog {
             ThanhToanJDialog tt = new ThanhToanJDialog(null, true);
             tt.setVisible(true);
         }
-        
+
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void tblLoaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLoaiMouseClicked
@@ -638,6 +686,7 @@ public class BanHangJDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
@@ -663,6 +712,7 @@ public class BanHangJDialog extends javax.swing.JDialog {
     private javax.swing.JTextField txtGiaSize;
     private javax.swing.JTextField txtGiaTP;
     private javax.swing.JTextField txtGiamGia;
+    private javax.swing.JTextField txtMaHD;
     private javax.swing.JTextField txtSize;
     private javax.swing.JTextField txtTenSp;
     private javax.swing.JTextField txtTongTien;

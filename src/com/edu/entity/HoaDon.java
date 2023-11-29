@@ -13,21 +13,32 @@ public class HoaDon {
     private String idHoaDon;
     private float tongTien;
     private String ngayTao;
-    private String nguoiTao;
+    private String IDNV;
     private String khuyenMai;
     private int soLuong;
+    private boolean xoaMen;
 
     public HoaDon() {
     }
 
-    public HoaDon(String idHoaDon, float tongTien, String ngayTao, String nguoiTao, String khuyenMai, int soLuong) {
+    public HoaDon(String idHoaDon, float tongTien, String ngayTao, String IDNV, String khuyenMai, int soLuong) {
         this.idHoaDon = idHoaDon;
         this.tongTien = tongTien;
         this.ngayTao = ngayTao;
-        this.nguoiTao = nguoiTao;
+        this.IDNV = IDNV;
         this.khuyenMai = khuyenMai;
         this.soLuong = soLuong;
     }
+
+    public boolean isXoaMen() {
+        return xoaMen;
+    }
+
+    public void setXoaMen(boolean xoaMen) {
+        this.xoaMen = xoaMen;
+    }
+    
+    
 
     public String getIdHoaDon() {
         return idHoaDon;
@@ -53,12 +64,12 @@ public class HoaDon {
         this.ngayTao = ngayTao;
     }
 
-    public String getNguoiTao() {
-        return nguoiTao;
+    public String getIDNV() {
+        return IDNV;
     }
 
-    public void setNguoiTao(String nguoiTao) {
-        this.nguoiTao = nguoiTao;
+    public void setIDNV(String IDNV) {
+        this.IDNV = IDNV;
     }
 
     public String getKhuyenMai() {
@@ -77,11 +88,10 @@ public class HoaDon {
         this.soLuong = soLuong;
     }
 
-   
-   
-
+    
+    
     public Object[] toData() {
-        return new Object[]{idHoaDon, tongTien, ngayTao, nguoiTao, khuyenMai, soLuong};
+        return new Object[]{idHoaDon, tongTien, ngayTao, IDNV, khuyenMai, soLuong};
     }
 
 }

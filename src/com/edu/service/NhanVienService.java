@@ -22,7 +22,7 @@ public class NhanVienService {
     ResultSet rs = null;
 
     public List<NhanVien> getAll() {
-        sql = "SELECT [ID] ,[HoTen] ,[GioiTinh] ,[ChucVu] ,[SDT]  ,[Email] FROM [dbo].[NhanVien]";
+        sql = "SELECT [IDNV], MatKhau ,[HoTen] ,[GioiTinh] ,[ChucVu] ,[SDT]  ,[Email] FROM [dbo].[NhanVien]";
         List<NhanVien> listnv = new ArrayList<>();
         try {
             con = DBConnect.getConnection();
@@ -31,10 +31,11 @@ public class NhanVienService {
             while (rs.next()) {
                 NhanVien nv = new NhanVien(rs.getString(1),
                         rs.getString(2),
-                        rs.getString(6),
-                        rs.getString(3), 
-                        rs.getString(4), 
-                        rs.getInt(5));
+                        rs.getString(3),
+                        rs.getString(7),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getInt(6));
                 listnv.add(nv);
             }
             return listnv;
@@ -45,7 +46,7 @@ public class NhanVienService {
     }
 
     public int deleteNhanVien(String id) {
-        sql = "DELETE FROM [dbo].[NhanVien] WHERE [ID] = ?";
+        sql = "DELETE FROM [dbo].[NhanVien] WHERE [IDNV] = ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -58,7 +59,7 @@ public class NhanVienService {
     }
 
     public int update(String id, NhanVien nv) {
-        sql = "UPDATE [dbo].[NhanVien] SET [ID] = ?,[HoTen] = ?,[GioiTinh] = ?,[SDT] = ?,[Email] = ?,[ChucVu] = ? WHERE [ID] = ?";
+        sql = "UPDATE [dbo].[NhanVien] SET [IDNV] = ?,[HoTen] = ?,[GioiTinh] = ?,[SDT] = ?,[Email] = ?,[ChucVu] = ? WHERE [ID] = ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -76,7 +77,7 @@ public class NhanVienService {
         }
     }
 
-    public int addNhanVien(NhanVien nv){
+    public int addNhanVien(NhanVien nv) {
         sql = "INSERT INTO [dbo].[NhanVien]([ID],[HoTen],[GioiTinh],[SDT],[Email],[ChucVu]) VALUES (?,?,?,?,?,?)";
         try {
             con = DBConnect.getConnection();
@@ -93,7 +94,7 @@ public class NhanVienService {
             return 0;
         }
     }
-    
+
     public boolean testTrung(String ma) {
         List<NhanVien> lst = this.getAll();
         boolean check = false;
@@ -105,19 +106,19 @@ public class NhanVienService {
         }
         return check;
     }
-    
-    public boolean testTrungTen(String ten){
-       List<NhanVien> lst = this.getAll();
+
+    public boolean testTrungTen(String ten) {
+        List<NhanVien> lst = this.getAll();
         boolean check = false;
         for (NhanVien nv : lst) {
-            if(nv.getHoTen().equals(ten)){
+            if (nv.getHoTen().equals(ten)) {
                 check = true;
                 break;
             }
         }
         return check;
     }
-    
+
     public List<NhanVien> selectHoTen(String ten) {
         try {
             String sql = "SELECT [ID] ,[HoTen] ,[GioiTinh] ,[SDT]  ,[Email] , [ChucVu] FROM NhanVien WHERE [HoTen] LIKE ?";
@@ -133,7 +134,6 @@ public class NhanVienService {
                         nv.setSdt(rs.getInt("SDT"));
                         nv.setEmail(rs.getString("Email"));
                         nv.setChucVu(rs.getString("ChucVu"));
-
                         list.add(nv);
                     }
                     return list;
@@ -144,22 +144,48 @@ public class NhanVienService {
             return null;
         }
     }
-    
+
     public NhanVien getbyTen(String ten) {
-        sql = "SELECT ID ,HoTen ,GioiTinh ,ChucVu ,SDT  ,Email FROM dbo.NhanVien Where HoTen like ?";
+        sql = "SELECT IDNV ,HoTen ,GioiTinh ,ChucVu ,SDT  ,Email FROM dbo.NhanVien Where HoTen like ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setObject(1,  "%" + ten + "%");
+            ps.setObject(1, "%" + ten + "%");
             rs = ps.executeQuery();
             while (rs.next()) {
                 NhanVien nv = new NhanVien(rs.getString(1),
                         rs.getString(2),
                         rs.getString(6),
-                        rs.getString(3), 
-                        rs.getString(4), 
+                        rs.getString(3),
+                        rs.getString(4),
                         rs.getInt(5));
                 return nv;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return null;
+    }
+
+    public NhanVien selectByID(String ten) {
+        try {
+            String sql = "SELECT [IDNV], MatKhau ,[HoTen] ,[GioiTinh] ,[SDT]  ,[Email] , [ChucVu] FROM NhanVien WHERE [IDNV] LIKE ?";
+            try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
+                ps.setObject(1, "%" + ten + "%");
+                try (ResultSet rs = ps.executeQuery();) {
+                    while (rs.next()) {
+                        NhanVien nv = new NhanVien();
+                        nv.setIdNhanVien(rs.getString("IDNV"));
+                        nv.setMatKhau(rs.getString("MatKhau"));
+                        nv.setHoTen(rs.getString("HoTen"));
+                        nv.setGioiTinh(rs.getString("GioiTinh"));
+                        nv.setSdt(rs.getInt("SDT"));
+                        nv.setEmail(rs.getString("Email"));
+                        nv.setChucVu(rs.getString("ChucVu"));
+                        return nv;
+                    }
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

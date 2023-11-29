@@ -6,6 +6,7 @@ package com.edu.ui;
 
 import com.edu.entity.HoaDon;
 import com.edu.service.HoaDonService;
+import com.edu.utils.Auth;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -44,7 +45,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         txtMaHoaDon.setText(hd.getIdHoaDon());
         txtTongTien.setText(String.valueOf(hd.getTongTien()));
         txtNgayTao.setText(hd.getNgayTao());
-        txtNguoiTao.setText(hd.getNguoiTao());
+        txtNguoiTao.setText(Auth.user.getIdNhanVien());
         txtKhuyenMai.setText(hd.getKhuyenMai());
         txtSoLuong.setText(String.valueOf(hd.getSoLuong()));
     }
@@ -375,7 +376,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         txtMaHoaDon.setText(hd.getIdHoaDon());
         txtTongTien.setText(String.valueOf(hd.getTongTien()));
         txtNgayTao.setText(hd.getNgayTao());
-        txtNguoiTao.setText(hd.getNguoiTao());
+        txtNguoiTao.setText(hd.getIDNV());
         txtKhuyenMai.setText(hd.getKhuyenMai());
         txtSoLuong.setText(String.valueOf(hd.getSoLuong()));
     }//GEN-LAST:event_tblHoaDonMouseClicked
@@ -386,18 +387,18 @@ public class HoaDonJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnTimActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        int chon = JOptionPane.showConfirmDialog(this, "Bạn có muốn xóa không", "Hỏi", JOptionPane.YES_NO_OPTION);
-        if (chon == JOptionPane.NO_OPTION) {
-            return;
-        }
-        index = tblHoaDon.getSelectedRow();
-        if (service.deleteHoaDon(txtMaHoaDon.getText()) != 0) {
-            JOptionPane.showMessageDialog(this, "Xóa thành công");
-            fillTable(service.getAll());
-            clear();
-        } else {
-            JOptionPane.showMessageDialog(this, "Xóa thất bại");
-        }
+//        int chon = JOptionPane.showConfirmDialog(this, "Bạn có muốn xóa không", "Hỏi", JOptionPane.YES_NO_OPTION);
+//        if (chon == JOptionPane.NO_OPTION) {
+//            return;
+//        }
+//        index = tblHoaDon.getSelectedRow();
+//        if (service.deleteHoaDon(txtMaHoaDon.getText()) != 0) {
+//            JOptionPane.showMessageDialog(this, "Xóa thành công");
+//            fillTable(service.getAll());
+//            clear();
+//        } else {
+//            JOptionPane.showMessageDialog(this, "Xóa thất bại");
+//        }
     }//GEN-LAST:event_btnXoaActionPerformed
 
     /**

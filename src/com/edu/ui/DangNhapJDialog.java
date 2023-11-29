@@ -6,7 +6,9 @@ package com.edu.ui;
 
 
 import com.edu.entity.DangNhap;
+import com.edu.entity.NhanVien;
 import com.edu.service.DangNhapService;
+import com.edu.service.NhanVienService;
 import com.edu.utils.Auth;
 import com.edu.utils.MsgBox;
 import com.edu.utils.XImage;
@@ -16,7 +18,7 @@ import com.edu.utils.XImage;
  * @author dotin
  */
 public class DangNhapJDialog extends javax.swing.JDialog {
-    DangNhapService service = new DangNhapService();
+    NhanVienService nvService = new NhanVienService();
     /**
      * Creates new form DangNhapJDialog2
      */
@@ -28,19 +30,21 @@ public class DangNhapJDialog extends javax.swing.JDialog {
     void dangNhap(){
         String id = txtDangNhap.getText();
         String mk = new String(txtMatKhau.getPassword());
-        DangNhap dn = service.selectById(id);
-        if (dn == null) {
+        NhanVien nv = nvService.selectByID(id);
+        if (nv == null) {
             MsgBox.alert(this, "Sai tên đăng nhập");
         } else {
-            if (!dn.getMatKhau().equals(mk)) {
+            if (!nv.getMatKhau().equals(mk)) {
                 MsgBox.alert(this, "Sai mật khẩu");
             } 
             else {
-                Auth.user = dn;
+                Auth.user = nv;
                 this.dispose();
+                new TrangChuJFrame().setVisible(true);
             }
         }
     }
+    
     void Thoat() {
         if (MsgBox.confirm(this, "Bạn có muốn kết thúc úng dụng?")) {
             System.exit(0);
@@ -83,7 +87,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel2.setText("Mật khẩu:");
 
-        txtDangNhap.setText("chiht ");
+        txtDangNhap.setText("chiht");
 
         btnDangNhap.setFont(new java.awt.Font("Times New Roman", 1, 15)); // NOI18N
         btnDangNhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/edu/icon/Login.png"))); // NOI18N
@@ -103,7 +107,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
             }
         });
 
-        txtMatKhau.setText("123");
+        txtMatKhau.setText("abc");
         txtMatKhau.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtMatKhauActionPerformed(evt);

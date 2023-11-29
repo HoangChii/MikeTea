@@ -24,7 +24,7 @@ public class HoaDonService {
     ResultSet rs = null;
 
     public List<HoaDon> getAll() {
-        sql = "SELECT [ID]  ,[TongTien],[NgayTao],[NguoiTao], [KhuyenMai], [SoLuong] FROM [dbo].[HoaDon]";
+        sql = "SELECT [ID]  ,[TongTien],[NgayTao],[IDNV], [KhuyenMai], [SoLuong] FROM [dbo].[HoaDon]";
         List<HoaDon> listhd = new ArrayList<>();
         try {
             con = DBConnect.getConnection();
@@ -58,9 +58,23 @@ public class HoaDonService {
             return 0;
         }
     }
+    
+    public int xoaMem(String id) {
+        sql = "DELETE FROM [dbo].[HoaDon] WHERE ID = false";
+        try {
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, id);
+            return ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+    
     public List<HoaDon> selectHoTen(String Id) {
         try {
-            String sql = "SELECT [ID] ,[KhuyenMai] ,[NgayTao] ,[NguoiTao]  ,[SoLuong] , [TongTien] FROM HoaDon WHERE [ID] LIKE ?";
+            String sql = "SELECT [ID] ,[KhuyenMai] ,[IDNV] ,[NguoiTao]  ,[SoLuong] , [TongTien] FROM HoaDon WHERE [ID] LIKE ?";
             try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
                 ps.setObject(1, "%" + Id + "%");
                 try (ResultSet rs = ps.executeQuery();) {
@@ -70,7 +84,7 @@ public class HoaDonService {
                         hd.setIdHoaDon(rs.getString("ID"));
                         hd.setKhuyenMai(rs.getString("KhuyenMai"));
                         hd.setNgayTao(rs.getString("NgayTao"));
-                        hd.setNguoiTao(rs.getString("NguoiTao"));
+                        hd.setIDNV(rs.getString("IDNV"));
                         hd.setSoLuong(rs.getInt("SoLuong"));
                         hd.setTongTien(rs.getFloat("TongTien"));
 
@@ -86,7 +100,7 @@ public class HoaDonService {
     }
     
     public HoaDon getBtTen(String ma) {
-        sql = "SELECT [ID]  ,[TongTien],[NgayTao],[NguoiTao], [KhuyenMai], [SoLuong] FROM [dbo].[HoaDon] WHERE ID LIKE ?";
+        sql = "SELECT [ID]  ,[TongTien],[NgayTao],[IDNV], [KhuyenMai], [SoLuong] FROM [dbo].[HoaDon] WHERE ID LIKE ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);

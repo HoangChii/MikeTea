@@ -90,10 +90,10 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         jLabel10.setText("Ngày Tạo:");
 
         jLabel11.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel11.setText("jLabel11");
+        jLabel11.setText("xx-xx-xxxx");
 
         jLabel12.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel12.setText("jLabel11");
+        jLabel12.setText("Tên NV:");
 
         jButton1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/edu/icon/Print.png"))); // NOI18N
