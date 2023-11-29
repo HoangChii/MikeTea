@@ -52,7 +52,7 @@ public class SanPhamJDialog extends javax.swing.JDialog {
         txtTenSP.setText(sp.getTenSP());
         txtSoLuong.setText(String.valueOf(sp.getSoLuong()));
         txtGiaBan.setText(String.valueOf(sp.getGiaBan()));
-        if (sp.getHinh()!= null) {
+        if (sp.getHinh() != null) {
             lblAnh.setToolTipText(sp.getHinh());
             lblAnh.setIcon(XImage.read(sp.getHinh()));
         } else {
@@ -72,10 +72,17 @@ public class SanPhamJDialog extends javax.swing.JDialog {
         return new SanPham(txtMaSP.getText(), txtTenSP.getText(), lblAnh.getToolTipText(), Float.parseFloat(txtGiaBan.getText()), Integer.parseInt(txtSoLuong.getText()));
     }
 
-    
     boolean checkForm() {
         if (txtMaSP.getText().isEmpty() || txtTenSP.getText().isEmpty() || txtGiaBan.getText().isEmpty() || txtSoLuong.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ dữ liệu");
+            return false;
+        }
+        return true;
+    }
+
+    boolean checktim() {
+        if (txtTim.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập tên sản phẩm cần tìm");
             return false;
         }
         return true;
@@ -440,7 +447,7 @@ public class SanPhamJDialog extends javax.swing.JDialog {
         txtTenSP.setText(sp.getTenSP());
         txtSoLuong.setText(String.valueOf(sp.getSoLuong()));
         txtGiaBan.setText(String.valueOf(sp.getGiaBan()));
-        if (sp.getHinh()!= null) {
+        if (sp.getHinh() != null) {
             lblAnh.setToolTipText(sp.getHinh());
             lblAnh.setIcon(XImage.read(sp.getHinh()));
         } else {
@@ -513,8 +520,11 @@ public class SanPhamJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
-        List<SanPham> id = service.selectTen(txtTim.getText());
-        fillTable(id);
+        if (checktim()) {
+            List<SanPham> id = service.selectTen(txtTim.getText());
+            fillTable(id);
+        }
+
     }//GEN-LAST:event_btnTimActionPerformed
 
     private void lblAnhMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAnhMousePressed
@@ -526,7 +536,7 @@ public class SanPhamJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_txtGiaBanActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-       
+
         dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 

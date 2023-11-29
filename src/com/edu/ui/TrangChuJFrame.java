@@ -33,13 +33,16 @@ public class TrangChuJFrame extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 lblDongHo.setText(format.format(new Date()));
-            }
-        }).start();
+            } 
+        }
+        ).start();
         
         
 //        this.openLogin();
     }
 
+    
+    
     public TrangChuJFrame() {
         initComponents();
         init();
@@ -49,7 +52,7 @@ public class TrangChuJFrame extends javax.swing.JFrame {
     void DisPlayUserInFo(){
         String id = Auth.user.getHoTen();
         String vaitro = Auth.user.isChucVu()? "Quản Lý" : "Nhân Viên";
-        lblTaiKhoan.setText("Tên Nhân Viên: " + id + " | Chức Vụ: " + vaitro);
+        lblTaiKhoan.setText("Tên : " + id + " | Chức Vụ: " + vaitro);
     }
    
     void openLogin() {

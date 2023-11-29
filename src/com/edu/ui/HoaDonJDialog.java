@@ -23,7 +23,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
     private HoaDonService service = new HoaDonService();
     private List<HoaDon> listhd = new ArrayList<>();
     private HoaDon hd = new HoaDon();
-    
+
     public HoaDonJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -50,7 +50,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         txtSoLuong.setText(String.valueOf(hd.getSoLuong()));
     }
 
-    public void clear(){
+    public void clear() {
         txtMaHoaDon.setText("");
         txtTongTien.setText("");
         txtNgayTao.setText("");
@@ -58,6 +58,15 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         txtKhuyenMai.setText("");
         txtSoLuong.setText("");
     }
+
+    boolean checktim() {
+        if (txtTim.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã hóa đơn cần tìm");
+            return false;
+        }
+        return true;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -382,23 +391,26 @@ public class HoaDonJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_tblHoaDonMouseClicked
 
     private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
-        List<HoaDon> id = service.selectHoTen(txtTim.getText());
-        fillTable(id);
+        if (checktim()) {
+            List<HoaDon> id = service.selectHoTen(txtTim.getText());
+            fillTable(id);
+        }
+
     }//GEN-LAST:event_btnTimActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-//        int chon = JOptionPane.showConfirmDialog(this, "Bạn có muốn xóa không", "Hỏi", JOptionPane.YES_NO_OPTION);
-//        if (chon == JOptionPane.NO_OPTION) {
-//            return;
-//        }
-//        index = tblHoaDon.getSelectedRow();
-//        if (service.deleteHoaDon(txtMaHoaDon.getText()) != 0) {
-//            JOptionPane.showMessageDialog(this, "Xóa thành công");
-//            fillTable(service.getAll());
-//            clear();
-//        } else {
-//            JOptionPane.showMessageDialog(this, "Xóa thất bại");
-//        }
+        int chon = JOptionPane.showConfirmDialog(this, "Bạn có muốn xóa không", "Hỏi", JOptionPane.YES_NO_OPTION);
+        if (chon == JOptionPane.NO_OPTION) {
+            return;
+        }
+        index = tblHoaDon.getSelectedRow();
+        if (service.deleteHoaDon(txtMaHoaDon.getText()) != 0) {
+            JOptionPane.showMessageDialog(this, "Xóa thành công");
+            fillTable(service.getAll());
+            clear();
+        } else {
+            JOptionPane.showMessageDialog(this, "Xóa thất bại");
+        }
     }//GEN-LAST:event_btnXoaActionPerformed
 
     /**

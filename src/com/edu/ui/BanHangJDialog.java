@@ -8,6 +8,7 @@ import com.edu.entity.BanHang;
 import com.edu.entity.Loai;
 import com.edu.entity.Topping;
 import com.edu.service.BanHangService;
+import com.edu.service.HoaDonChiTietService;
 import com.edu.service.LoaiSevice;
 import com.edu.service.ToppingService;
 import com.edu.utils.XImage;
@@ -26,6 +27,7 @@ public class BanHangJDialog extends javax.swing.JDialog {
     private int index = -1;
     private BanHangService service = new BanHangService();
     private ToppingService servicetp = new ToppingService();
+    private HoaDonChiTietService servicehd = new HoaDonChiTietService();
     private List<BanHang> listbh = new ArrayList<>();
     private LoaiSevice servicel = new LoaiSevice();
 
@@ -108,6 +110,26 @@ public class BanHangJDialog extends javax.swing.JDialog {
     }
 
     public boolean check2() {
+        if (txtGiamGia.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Trống Giảm Giá");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean check3() {
+        if (txtTenSp.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Trống Tên Món");
+            return false;
+        }
+        if (txtTopping.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Trống Topping");
+            return false;
+        }
+        if (txtSize.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Trống Size");
+            return false;
+        }
         if (txtGiamGia.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(this, "Trống Giảm Giá");
             return false;
@@ -618,11 +640,14 @@ public class BanHangJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
-        int choce = JOptionPane.showConfirmDialog(this, "Bạn có muốn thanh toán không", "Hỏi", JOptionPane.YES_NO_OPTION);
-        if (choce == JOptionPane.YES_OPTION) {
-            ThanhToanJDialog tt = new ThanhToanJDialog(null, true);
-            tt.setVisible(true);
+        if (check3()) {
+            int choce = JOptionPane.showConfirmDialog(this, "Bạn có muốn thanh toán không", "Hỏi", JOptionPane.YES_NO_OPTION);
+            if (choce == JOptionPane.YES_OPTION) {
+                ThanhToanJDialog tt = new ThanhToanJDialog(null, true);
+                tt.setVisible(true);
+            }
         }
+        
 
     }//GEN-LAST:event_btnThanhToanActionPerformed
 

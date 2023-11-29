@@ -5,6 +5,7 @@
 package com.edu.service;
 
 import com.edu.entity.BanHang;
+import com.edu.entity.HoaDonChiTiet;
 import com.edu.utils.DBConnect;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,25 @@ public class BanHangService {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+    
+    public int add(HoaDonChiTiet x){
+        sql = "INSERT INTO [dbo].[HoaDonChiTiet] ([IDHoaDon] ,[TenSanPham] ,[DonGia] ,[SoLuong] ,[ThanhTien] ,[KhuyenMai] ,[TongTien] ) VALUES (?,?,?,?,?,?,?)";
+        try {
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, x.getIDHoaDon());
+            ps.setObject(2, x.getTenSanPham());
+            ps.setObject(3, x.getDonGia());
+            ps.setObject(4, x.getSoLuong());
+            ps.setObject(5, x.getThanhTien());
+            ps.setObject(6, x.getKhuyenMai());
+            ps.setObject(7, x.getTongTien());
+            return ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
         }
     }
 }

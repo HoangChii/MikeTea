@@ -19,43 +19,46 @@ import javax.swing.table.DefaultTableModel;
  */
 public class KhuyenMaiJDialog extends javax.swing.JDialog {
 
-     private DefaultTableModel model = new DefaultTableModel();
+    private DefaultTableModel model = new DefaultTableModel();
     private int index = -1;
     private KhuyenMaiService service = new KhuyenMaiService();
     private List<KhuyenMai> listkm = new ArrayList<>();
     private SimpleDateFormat sdf = new SimpleDateFormat();
+
     public KhuyenMaiJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+
         setLocationRelativeTo(null);
         fillToTable(service.getAll());
     }
 
-    public void fillToTable(List<KhuyenMai> list){
+    public void fillToTable(List<KhuyenMai> list) {
         model = (DefaultTableModel) tblKhuyenMai.getModel();
         model.setRowCount(0);
         for (KhuyenMai km : list) {
             model.addRow(km.toData());
         }
     }
-    public void showData(int index ){
+
+    public void showData(int index) {
         KhuyenMai km = service.getAll().get(index);
         txtMaKM.setText(km.getMaKM());
         txtTenKM.setText(km.getTenKM());
         txtGiaTri.setText(String.valueOf(km.getGiaTri()));
-        txtThoiGianStart.setText(km.getThoiGianBatDau()+"");
-        txtThoiGianEnd.setText(km.getThoiGianKetThuc()+"");
+        txtThoiGianStart.setText(km.getThoiGianBatDau() + "");
+        txtThoiGianEnd.setText(km.getThoiGianKetThuc() + "");
     }
-    
-    public KhuyenMai readForm(){
+
+    public KhuyenMai readForm() {
         return new KhuyenMai(txtMaKM.getText(), txtTenKM.getText(), Float.parseFloat(txtGiaTri.getText()), parseDate(txtThoiGianStart.getText()), parseDate(txtThoiGianEnd.getText()));
     }
 
-     private String date2String(Date date) {
+    private String date2String(Date date) {
         return sdf.format(date);
-     }
-     private Date parseDate(String ngayThang) {
+    }
+
+    private Date parseDate(String ngayThang) {
         // Đối tượng hỗ trợ đọc kiểu dữ liệu ngày tháng
         //String date = DateFormat.
         try {
@@ -65,22 +68,32 @@ public class KhuyenMaiJDialog extends javax.swing.JDialog {
             return new Date();
         }
     }
-     public void clear(){
-         txtMaKM.setText("");
-         txtTenKM.setText("");
-         txtGiaTri.setText("");
-         txtThoiGianStart.setText("");
-         txtThoiGianStart.setText("");
-     }
-     
-     boolean checkForm(){
-         if(txtMaKM.getText().isEmpty()|| txtTenKM.getText().isEmpty()|| txtGiaTri.getText().isEmpty()){
-             JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ dữ liệu");
-             return false;
-         }
-         return true;
-     }
-     public boolean testTrung(String ma) {
+
+    public void clear() {
+        txtMaKM.setText("");
+        txtTenKM.setText("");
+        txtGiaTri.setText("");
+        txtThoiGianStart.setText("");
+        txtThoiGianStart.setText("");
+    }
+
+    boolean checkForm() {
+        if (txtMaKM.getText().isEmpty() || txtTenKM.getText().isEmpty() || txtGiaTri.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ dữ liệu");
+            return false;
+        }
+        return true;
+    }
+
+    boolean checktim() {
+        if (txtTim.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã khuyến mãi cần tìm");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean testTrung(String ma) {
         List<KhuyenMai> lst = service.getAll();
         boolean check = false;
         for (KhuyenMai km : lst) {
@@ -91,6 +104,7 @@ public class KhuyenMaiJDialog extends javax.swing.JDialog {
         }
         return check;
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -179,6 +193,11 @@ public class KhuyenMaiJDialog extends javax.swing.JDialog {
         btnClear.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         btnClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/edu/icon/Refresh.png"))); // NOI18N
         btnClear.setText("Mới");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -403,50 +422,50 @@ public class KhuyenMaiJDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        if(checkForm()){
+        if (checkForm()) {
             KhuyenMai km = this.readForm();
-            if(service.testTrung(km.getMaKM())){
+            if (service.testTrung(km.getMaKM())) {
                 JOptionPane.showMessageDialog(this, "Trùng mã khuyến mãi");
             }
-            if(service.testTrungTen(km.getTenKM())){
+            if (service.testTrungTen(km.getTenKM())) {
                 JOptionPane.showMessageDialog(this, "Trùng tên khuyến mãi");
-            }else{
-        
-        int ask = JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm không?","Hỏi",JOptionPane.YES_NO_OPTION);
-        if (ask == JOptionPane.NO_OPTION) {
-            return;
+            } else {
+
+                int ask = JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm không?", "Hỏi", JOptionPane.YES_NO_OPTION);
+                if (ask == JOptionPane.NO_OPTION) {
+                    return;
+                }
+                if (service.addKhuyenMai(km) != 0) {
+                    JOptionPane.showMessageDialog(this, "Thêm thành công");
+                    this.fillToTable(service.getAll());
+                } else {
+                    JOptionPane.showMessageDialog(this, "Thêm thất bại");
+                }
+            }
         }
-        if (service.addKhuyenMai(km)!=0) {
-            JOptionPane.showMessageDialog(this, "Thêm thành công");
-            this.fillToTable(service.getAll());
-        } else {
-            JOptionPane.showMessageDialog(this, "Thêm thất bại");
-        }
-      }
-     }
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void tblKhuyenMaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhuyenMaiMouseClicked
         index = tblKhuyenMai.rowAtPoint(evt.getPoint());
         String x = tblKhuyenMai.getValueAt(index, 0).toString();
-        KhuyenMai km = service.getByTen(x);
+        KhuyenMai km = service.getByma(x);
         txtMaKM.setText(km.getMaKM());
         txtTenKM.setText(km.getTenKM());
         txtGiaTri.setText(String.valueOf(km.getGiaTri()));
-        txtThoiGianStart.setText(km.getThoiGianBatDau()+"");
-        txtThoiGianEnd.setText(km.getThoiGianKetThuc()+"");
+        txtThoiGianStart.setText(km.getThoiGianBatDau() + "");
+        txtThoiGianEnd.setText(km.getThoiGianKetThuc() + "");
     }//GEN-LAST:event_tblKhuyenMaiMouseClicked
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         int chon = JOptionPane.showConfirmDialog(this, "Bạn có muốn xóa không", "Hỏi", JOptionPane.YES_NO_OPTION);
-        if(chon == JOptionPane.NO_OPTION){
-            return;     
+        if (chon == JOptionPane.NO_OPTION) {
+            return;
         }
         index = tblKhuyenMai.getSelectedRow();
-        if(service.deleteKhuyenMai(txtMaKM.getText()) !=0){
+        if (service.deleteKhuyenMai(txtMaKM.getText()) != 0) {
             JOptionPane.showMessageDialog(this, "Xóa thành công");
             fillToTable(service.getAll());
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Xóa thất bại");
         }
     }//GEN-LAST:event_btnXoaActionPerformed
@@ -463,19 +482,25 @@ public class KhuyenMaiJDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Update thành công");
             fillToTable(service.getAll());
             clear();
-        }else {
+        } else {
             JOptionPane.showMessageDialog(this, "Update thất bại");
         }
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
-        List<KhuyenMai> id = service.selectKhuyenMai(txtTim.getText());
-        fillToTable(id);
+        if (checktim()) {
+            List<KhuyenMai> id = service.selectKhuyenMai(txtTim.getText());
+            fillToTable(id);
+        }
     }//GEN-LAST:event_btnTimActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         dispose();
     }//GEN-LAST:event_btnExitActionPerformed
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        clear();
+    }//GEN-LAST:event_btnClearActionPerformed
 
     /**
      * @param args the command line arguments

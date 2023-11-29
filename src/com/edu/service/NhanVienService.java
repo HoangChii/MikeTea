@@ -121,14 +121,14 @@ public class NhanVienService {
 
     public List<NhanVien> selectHoTen(String ten) {
         try {
-            String sql = "SELECT [ID] ,[HoTen] ,[GioiTinh] ,[SDT]  ,[Email] , [ChucVu] FROM NhanVien WHERE [HoTen] LIKE ?";
+            String sql = "SELECT [IDNV] ,[HoTen] ,[GioiTinh] ,[SDT]  ,[Email] , [ChucVu] FROM NhanVien WHERE [HoTen] LIKE ?";
             try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
                 ps.setObject(1, "%" + ten + "%");
                 try (ResultSet rs = ps.executeQuery();) {
                     List<NhanVien> list = new ArrayList<>();
                     while (rs.next()) {
                         NhanVien nv = new NhanVien();
-                        nv.setIdNhanVien(rs.getString("ID"));
+                        nv.setIdNhanVien(rs.getString("IDNV"));
                         nv.setHoTen(rs.getString("HoTen"));
                         nv.setGioiTinh(rs.getString("GioiTinh"));
                         nv.setSdt(rs.getInt("SDT"));

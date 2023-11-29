@@ -71,12 +71,20 @@ public class NhanVienJDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ dữ liệu");
             return false;
         }
-        
+
         try {
             Double.parseDouble(txtSDT.getText());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "SĐT phải là số");
             return true;
+        }
+        return true;
+    }
+
+    boolean checktim() {
+        if (txtTim.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập tên nhân viên cần tìm");
+            return false;
         }
         return true;
     }
@@ -539,8 +547,10 @@ public class NhanVienJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
-        List<NhanVien> id = service.selectHoTen(txtTim.getText());
-        fillTable(id);
+        if (checktim()) {
+            List<NhanVien> id = service.selectHoTen(txtTim.getText());
+            fillTable(id);
+        }
     }//GEN-LAST:event_btnTimActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
@@ -551,19 +561,19 @@ public class NhanVienJDialog extends javax.swing.JDialog {
             }
             if (service.testTrungTen(nv.getHoTen())) {
                 JOptionPane.showMessageDialog(this, "Tên trùng");
-            }else{
-                int ask = JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm không?", "Hỏi", JOptionPane.YES_NO_OPTION);
-            if (ask == JOptionPane.NO_OPTION) {
-                return;
-            }
-            if (service.addNhanVien(nv) != 0) {
-                JOptionPane.showMessageDialog(this, "Thêm thành công");
-                this.fillTable(service.getAll());
             } else {
-                JOptionPane.showMessageDialog(this, "Thêm thất bại");
+                int ask = JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm không?", "Hỏi", JOptionPane.YES_NO_OPTION);
+                if (ask == JOptionPane.NO_OPTION) {
+                    return;
+                }
+                if (service.addNhanVien(nv) != 0) {
+                    JOptionPane.showMessageDialog(this, "Thêm thành công");
+                    this.fillTable(service.getAll());
+                } else {
+                    JOptionPane.showMessageDialog(this, "Thêm thất bại");
+                }
             }
-            }
-            
+
         }
 
     }//GEN-LAST:event_btnThemActionPerformed
@@ -573,7 +583,7 @@ public class NhanVienJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_txtTimActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        
+
         dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 

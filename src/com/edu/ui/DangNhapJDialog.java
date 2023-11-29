@@ -107,7 +107,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
             }
         });
 
-        txtMatKhau.setText("abc");
+        txtMatKhau.setText("123");
         txtMatKhau.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtMatKhauActionPerformed(evt);

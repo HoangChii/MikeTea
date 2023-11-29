@@ -74,7 +74,7 @@ public class HoaDonService {
     
     public List<HoaDon> selectHoTen(String Id) {
         try {
-            String sql = "SELECT [ID] ,[KhuyenMai] ,[IDNV] ,[NguoiTao]  ,[SoLuong] , [TongTien] FROM HoaDon WHERE [ID] LIKE ?";
+            String sql = "SELECT [ID] ,[KhuyenMai] ,[IDNV] ,[NgayTao]  ,[SoLuong] , [TongTien] FROM HoaDon WHERE [ID] LIKE ?";
             try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
                 ps.setObject(1, "%" + Id + "%");
                 try (ResultSet rs = ps.executeQuery();) {

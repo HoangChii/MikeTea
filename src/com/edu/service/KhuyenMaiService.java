@@ -135,7 +135,7 @@ public class KhuyenMaiService {
         }
     }
     
-    public KhuyenMai getByTen(String ma){
+    public KhuyenMai getByma(String ma){
         sql = "SELECT ID ,TenKM ,GiaTri ,ThoiGianBatDau ,ThoiGianKetThuc FROM KhuyenMai WHERE ID LIKE ?";
         try{
             con = DBConnect.getConnection();
