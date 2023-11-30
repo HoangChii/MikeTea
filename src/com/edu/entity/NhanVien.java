@@ -107,6 +107,6 @@ public class NhanVien {
     }
     
     public Object[] toData(){
-        return new Object[] {idNhanVien, hoTen, gioiTinh, ChucVu, sdt, email};
+        return new Object[] {idNhanVien, hoTen, gioiTinh, ChucVu, sdt, email, matKhau};
     }
 }

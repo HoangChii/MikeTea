@@ -74,7 +74,7 @@ public class KhuyenMaiJDialog extends javax.swing.JDialog {
         txtTenKM.setText("");
         txtGiaTri.setText("");
         txtThoiGianStart.setText("");
-        txtThoiGianStart.setText("");
+        txtThoiGianEnd.setText("");
     }
 
     boolean checkForm() {

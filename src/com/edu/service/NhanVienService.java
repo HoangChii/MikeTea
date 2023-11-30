@@ -22,7 +22,7 @@ public class NhanVienService {
     ResultSet rs = null;
 
     public List<NhanVien> getAll() {
-        sql = "SELECT [IDNV], MatKhau ,[HoTen] ,[GioiTinh] ,[ChucVu] ,[SDT]  ,[Email] FROM [dbo].[NhanVien]";
+        sql = "SELECT [IDNV] ,[HoTen] ,[GioiTinh] ,[ChucVu] ,[SDT] ,[Email] ,[MatKhau] FROM [dbo].[NhanVien]";
         List<NhanVien> listnv = new ArrayList<>();
         try {
             con = DBConnect.getConnection();
@@ -30,12 +30,12 @@ public class NhanVienService {
             rs = ps.executeQuery();
             while (rs.next()) {
                 NhanVien nv = new NhanVien(rs.getString(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(7),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getInt(6));
+                        rs.getString(7), 
+                        rs.getString(2), 
+                        rs.getString(6), 
+                        rs.getString(3), 
+                        rs.getString(4), 
+                        rs.getInt(5));
                 listnv.add(nv);
             }
             return listnv;
@@ -59,17 +59,18 @@ public class NhanVienService {
     }
 
     public int update(String id, NhanVien nv) {
-        sql = "UPDATE [dbo].[NhanVien] SET [IDNV] = ?,[HoTen] = ?,[GioiTinh] = ?,[SDT] = ?,[Email] = ?,[ChucVu] = ? WHERE [ID] = ?";
+        sql = "UPDATE [dbo].[NhanVien] SET [IDNV] = ?,[HoTen] = ?,[GioiTinh] = ?,[ChucVu] = ?,[SDT] = ?,[Email] = ?,[MatKhau] = ? WHERE [IDNV] = ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             ps.setObject(1, nv.getIdNhanVien());
             ps.setObject(2, nv.getHoTen());
             ps.setObject(3, nv.getGioiTinh());
-            ps.setObject(4, nv.getSdt());
-            ps.setObject(5, nv.getEmail());
-            ps.setObject(6, nv.getChucVu());
-            ps.setObject(7, id);
+            ps.setObject(4, nv.getChucVu());
+            ps.setObject(5, nv.getSdt());
+            ps.setObject(6, nv.getEmail());
+            ps.setObject(7, nv.getMatKhau());
+            ps.setObject(8, id);
             return ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -78,16 +79,17 @@ public class NhanVienService {
     }
 
     public int addNhanVien(NhanVien nv) {
-        sql = "INSERT INTO [dbo].[NhanVien]([ID],[HoTen],[GioiTinh],[SDT],[Email],[ChucVu]) VALUES (?,?,?,?,?,?)";
+        sql = "INSERT INTO [dbo].[NhanVien]([IDNV],[HoTen],[GioiTinh],[ChucVu],[SDT],[Email],[MatKhau]) VALUES (?,?,?,?,?,?,?)";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             ps.setObject(1, nv.getIdNhanVien());
             ps.setObject(2, nv.getHoTen());
             ps.setObject(3, nv.getGioiTinh());
-            ps.setObject(4, nv.getSdt());
-            ps.setObject(5, nv.getEmail());
-            ps.setObject(6, nv.getChucVu());
+            ps.setObject(4, nv.getChucVu());
+            ps.setObject(5, nv.getSdt());
+            ps.setObject(6, nv.getEmail());
+            ps.setObject(7, nv.getMatKhau());
             return ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
