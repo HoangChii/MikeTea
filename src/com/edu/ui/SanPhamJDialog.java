@@ -77,8 +77,21 @@ public class SanPhamJDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ dữ liệu");
             return false;
         }
+        try {
+            Double.parseDouble(txtGiaBan.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Giá Bán phải là số");
+            return false;
+        }
+        try {
+            Double.parseDouble(txtSoLuong.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Số Lượng phải là số");
+            return false;
+        }
         return true;
     }
+
 
     boolean checktim() {
         if (txtTim.getText().equals("")) {

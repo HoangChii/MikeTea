@@ -61,6 +61,7 @@ public class NhanVienJDialog extends javax.swing.JDialog {
         txtSDT.setText("");
         txtEmail.setText("");
         rdoQuanLy.setSelected(true);
+        txtMatKhau.setText("");
     }
 
     public NhanVien reaForm() {
