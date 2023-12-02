@@ -9,6 +9,7 @@ import com.edu.utils.DBConnect;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.*;
 
 /**
  *
@@ -22,19 +23,18 @@ public class NhanVienService {
     ResultSet rs = null;
 
     public List<NhanVien> getAll() {
-        sql = "SELECT [IDNV] ,[HoTen] ,[GioiTinh] ,[ChucVu] ,[SDT] ,[Email] ,[MatKhau] FROM [dbo].[NhanVien]";
+        sql = "SELECT [ID] ,[HoTen],[Email],[TinhTrang],[VaiTro],[MatKhau] FROM [NhanVien]";
         List<NhanVien> listnv = new ArrayList<>();
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                NhanVien nv = new NhanVien(rs.getString(1),
-                        rs.getString(7), 
+                NhanVien nv = new NhanVien(rs.getString(1), 
                         rs.getString(2), 
-                        rs.getString(6), 
                         rs.getString(3), 
-                        rs.getString(4), 
+                        rs.getString(6), 
+                        rs.getInt(4), 
                         rs.getInt(5));
                 listnv.add(nv);
             }
@@ -44,99 +44,48 @@ public class NhanVienService {
             return null;
         }
     }
-
-    public int deleteNhanVien(String id) {
-        sql = "DELETE FROM [dbo].[NhanVien] WHERE [IDNV] = ?";
+    
+    public NhanVien getByID(String id) {
         try {
-            con = DBConnect.getConnection();
-            ps = con.prepareStatement(sql);
-            ps.setObject(1, id);
-            return ps.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
-    }
-
-    public int update(String id, NhanVien nv) {
-        sql = "UPDATE [dbo].[NhanVien] SET [IDNV] = ?,[HoTen] = ?,[GioiTinh] = ?,[ChucVu] = ?,[SDT] = ?,[Email] = ?,[MatKhau] = ? WHERE [IDNV] = ?";
-        try {
-            con = DBConnect.getConnection();
-            ps = con.prepareStatement(sql);
-            ps.setObject(1, nv.getIdNhanVien());
-            ps.setObject(2, nv.getHoTen());
-            ps.setObject(3, nv.getGioiTinh());
-            ps.setObject(4, nv.getChucVu());
-            ps.setObject(5, nv.getSdt());
-            ps.setObject(6, nv.getEmail());
-            ps.setObject(7, nv.getMatKhau());
-            ps.setObject(8, id);
-            return ps.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
-    }
-
-    public int addNhanVien(NhanVien nv) {
-        sql = "INSERT INTO [dbo].[NhanVien]([IDNV],[HoTen],[GioiTinh],[ChucVu],[SDT],[Email],[MatKhau]) VALUES (?,?,?,?,?,?,?)";
-        try {
-            con = DBConnect.getConnection();
-            ps = con.prepareStatement(sql);
-            ps.setObject(1, nv.getIdNhanVien());
-            ps.setObject(2, nv.getHoTen());
-            ps.setObject(3, nv.getGioiTinh());
-            ps.setObject(4, nv.getChucVu());
-            ps.setObject(5, nv.getSdt());
-            ps.setObject(6, nv.getEmail());
-            ps.setObject(7, nv.getMatKhau());
-            return ps.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
-    }
-
-    public boolean testTrung(String ma) {
-        List<NhanVien> lst = this.getAll();
-        boolean check = false;
-        for (NhanVien nv : lst) {
-            if (nv.getIdNhanVien().equals(ma)) {
-                check = true;
-                break;
+            String sql = "SELECT [ID] ,[HoTen],[Email],[TinhTrang],[VaiTro],[MatKhau] FROM [NhanVien] where id like ?";
+            try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
+                ps.setObject(1, id);
+                try(ResultSet rs = ps.executeQuery();) {
+                    while (rs.next()) {                        
+                        NhanVien x = new NhanVien();
+                        x.setId(rs.getString("ID"));
+                        x.setHoTen(rs.getString("hoTen"));
+                        x.setEmail(rs.getString("Email"));
+                        x.setTinhTrang(rs.getInt("tinhTrang"));
+                        x.setVaiTro(rs.getInt("VaiTro"));
+                        x.setMatKhau(rs.getString("MatKhau"));
+                        return x;
+                    }
+                }
+                return null;
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
-        return check;
     }
-
-    public boolean testTrungTen(String ten) {
-        List<NhanVien> lst = this.getAll();
-        boolean check = false;
-        for (NhanVien nv : lst) {
-            if (nv.getHoTen().equals(ten)) {
-                check = true;
-                break;
-            }
-        }
-        return check;
-    }
-
-    public List<NhanVien> selectHoTen(String ten) {
+    
+    public List<NhanVien> getByTen(String ten) {
         try {
-            String sql = "SELECT [IDNV] ,[HoTen] ,[GioiTinh] ,[SDT]  ,[Email] , [ChucVu] FROM NhanVien WHERE [HoTen] LIKE ?";
+            String sql = "SELECT [ID] ,[HoTen],[Email],[MatKhau],[TinhTrang],[VaiTro] FROM [NhanVien] where HoTen like ?";
             try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
                 ps.setObject(1, "%" + ten + "%");
-                try (ResultSet rs = ps.executeQuery();) {
+                try(ResultSet rs = ps.executeQuery();) {
                     List<NhanVien> list = new ArrayList<>();
-                    while (rs.next()) {
-                        NhanVien nv = new NhanVien();
-                        nv.setIdNhanVien(rs.getString("IDNV"));
-                        nv.setHoTen(rs.getString("HoTen"));
-                        nv.setGioiTinh(rs.getString("GioiTinh"));
-                        nv.setSdt(rs.getInt("SDT"));
-                        nv.setEmail(rs.getString("Email"));
-                        nv.setChucVu(rs.getString("ChucVu"));
-                        list.add(nv);
+                    while (rs.next()) {                        
+                        NhanVien x = new NhanVien();
+                        x.setId(rs.getString("ID"));
+                        x.setHoTen(rs.getString("hoTen"));
+                        x.setEmail(rs.getString("Email"));
+                        x.setTinhTrang(rs.getInt("tinhTrang"));
+                        x.setVaiTro(rs.getInt("VaiTro"));
+                        
+                        list.add(x);
                     }
                     return list;
                 }
@@ -146,54 +95,57 @@ public class NhanVienService {
             return null;
         }
     }
-
-    public NhanVien getbyTen(String ten) {
-        sql = "SELECT IDNV ,HoTen ,GioiTinh ,ChucVu ,SDT  ,Email FROM dbo.NhanVien Where HoTen like ?";
+    
+    public boolean insert(NhanVien x) {
         try {
-            con = DBConnect.getConnection();
-            ps = con.prepareStatement(sql);
-            ps.setObject(1, "%" + ten + "%");
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                NhanVien nv = new NhanVien(rs.getString(1),
-                        rs.getString(2),
-                        rs.getString(6),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getInt(5));
-                return nv;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-        return null;
-    }
-
-    public NhanVien selectByID(String ten) {
-        try {
-            String sql = "SELECT [IDNV], MatKhau ,[HoTen] ,[GioiTinh] ,[SDT]  ,[Email] , [ChucVu] FROM NhanVien WHERE [IDNV] LIKE ?";
+            String sql = "INSERT INTO [dbo].[NhanVien] ([ID],[HoTen],[Email],[MatKhau],[TinhTrang],[VaiTro]) values (?,?,?,?,?,?)";
             try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
-                ps.setObject(1, "%" + ten + "%");
-                try (ResultSet rs = ps.executeQuery();) {
-                    while (rs.next()) {
-                        NhanVien nv = new NhanVien();
-                        nv.setIdNhanVien(rs.getString("IDNV"));
-                        nv.setMatKhau(rs.getString("MatKhau"));
-                        nv.setHoTen(rs.getString("HoTen"));
-                        nv.setGioiTinh(rs.getString("GioiTinh"));
-                        nv.setSdt(rs.getInt("SDT"));
-                        nv.setEmail(rs.getString("Email"));
-                        nv.setChucVu(rs.getString("ChucVu"));
-                        return nv;
-                    }
-                }
+                ps.setObject(1, x.getId());
+                ps.setObject(2, x.getHoTen());
+                ps.setObject(3, x.getEmail());
+                ps.setObject(4, x.getMatKhau());
+                ps.setObject(5, x.getTinhTrang());
+                ps.setObject(6, x.getVaiTro());
+                
+                return ps.executeUpdate() > 0;
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return false;
         }
-        return null;
+    }
+    
+    public boolean update(NhanVien x) {
+        try {
+            String sql = "UPDATE [dbo].[NhanVien] SET [HoTen] = ?,[Email] = ?,[MatKhau] = ?,[TinhTrang] = ?,[VaiTro] = ? where id = ?";
+            try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
+                ps.setObject(6, x.getId());
+                ps.setObject(1, x.getHoTen());
+                ps.setObject(2, x.getEmail());
+                ps.setObject(3, x.getMatKhau());
+                ps.setObject(4, x.getTinhTrang());
+                ps.setObject(5, x.getVaiTro());
+                
+                return ps.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public boolean delete(String id) {
+        try {
+            String sql = "delete from nhanVien where id = ?";
+            try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
+                ps.setObject(1, id);
+                
+                return ps.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
 }

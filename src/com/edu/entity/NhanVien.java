@@ -9,54 +9,27 @@ package com.edu.entity;
  * @author Hoàng Chi
  */
 public class NhanVien {
-    private String idNhanVien, matKhau, hoTen, email, gioiTinh, ChucVu;
-    private int sdt;
+    private String id, hoTen,email, matKhau;
+    private int tinhTrang, vaiTro;
     
     public NhanVien() {
     }
-    
-    public boolean isChucVu() {
-        if (ChucVu.equals("Quản Lý")) {
-            return true;
-        }
-        return false;
-    }
 
-    public NhanVien(String idNhanVien, String matKhau, String hoTen, String email, String gioiTinh, String ChucVu, int sdt) {
-        this.idNhanVien = idNhanVien;
-        this.matKhau = matKhau;
+    public NhanVien(String id, String hoTen, String email, String matKhau, int tinhTrang, int vaiTro) {
+        this.id = id;
         this.hoTen = hoTen;
         this.email = email;
-        this.gioiTinh = gioiTinh;
-        this.ChucVu = ChucVu;
-        this.sdt = sdt;
-    }
-
-    public NhanVien(String idNhanVien, String hoTen, String email, String gioiTinh, String ChucVu, int sdt) {
-        this.idNhanVien = idNhanVien;
-        this.hoTen = hoTen;
-        this.email = email;
-        this.gioiTinh = gioiTinh;
-        this.ChucVu = ChucVu;
-        this.sdt = sdt;
-    }
-    
-    
-
-    public String getIdNhanVien() {
-        return idNhanVien;
-    }
-
-    public void setIdNhanVien(String idNhanVien) {
-        this.idNhanVien = idNhanVien;
-    }
-
-    public String getMatKhau() {
-        return matKhau;
-    }
-
-    public void setMatKhau(String matKhau) {
         this.matKhau = matKhau;
+        this.tinhTrang = tinhTrang;
+        this.vaiTro = vaiTro;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getHoTen() {
@@ -75,38 +48,59 @@ public class NhanVien {
         this.email = email;
     }
 
-    public String getGioiTinh() {
-        return gioiTinh;
+    public String getMatKhau() {
+        return matKhau;
     }
 
-    public void setGioiTinh(String gioiTinh) {
-        this.gioiTinh = gioiTinh;
+    public void setMatKhau(String matKhau) {
+        this.matKhau = matKhau;
     }
 
-    public String getChucVu() {
-        return ChucVu;
+    public int getTinhTrang() {
+        return tinhTrang;
     }
 
-    public void setChucVu(String ChucVu) {
-        this.ChucVu = ChucVu;
+    public void setTinhTrang(int tinhTrang) {
+        this.tinhTrang = tinhTrang;
     }
 
-    public int getSdt() {
-        return sdt;
+    public int getVaiTro() {
+        return vaiTro;
     }
 
-    public void setSdt(int sdt) {
-        this.sdt = sdt;
+    public void setVaiTro(int vaiTro) {
+        this.vaiTro = vaiTro;
     }
     
-    public boolean isGioiTinh() {
-        if (gioiTinh.equals("Nam")) {
+    public boolean isTinhTrang() {
+        if (tinhTrang == 1) {
             return true;
         }
         return false;
     }
     
+    public boolean isVaiTro() {
+         if (vaiTro == 1) {
+            return true;
+        }
+        return false;
+    }
+    
+    public String showTT() {
+        if (tinhTrang == 1) {
+            return "Hoạt Động";
+        }
+        return "Không Hoạt Động";
+    }
+    
+    public String showVT() {
+        if (vaiTro == 1) {
+            return "Quản Lý";
+        }
+        return "Nhân Viên";
+    }
+    
     public Object[] toData(){
-        return new Object[] {idNhanVien, hoTen, gioiTinh, ChucVu, sdt, email, matKhau};
+        return new Object[] {id, hoTen, email, showTT(), showVT(),matKhau};
     }
 }

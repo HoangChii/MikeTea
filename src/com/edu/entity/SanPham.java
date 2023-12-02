@@ -12,18 +12,21 @@ public class SanPham {
     private String idSanPham;
     private String tenSP;
     private String hinh;
-    private float giaBan;
+    private double giaBan;
     private int soLuong;
+    private String topping, size;
 
     public SanPham() {
     }
 
-    public SanPham(String idSanPham, String tenSP, String hinh, float giaBan, int soLuong) {
+    public SanPham(String idSanPham, String tenSP, String hinh, double giaBan, int soLuong, String topping, String size) {
         this.idSanPham = idSanPham;
         this.tenSP = tenSP;
         this.hinh = hinh;
         this.giaBan = giaBan;
         this.soLuong = soLuong;
+        this.topping = topping;
+        this.size = size;
     }
 
     public String getIdSanPham() {
@@ -50,7 +53,7 @@ public class SanPham {
         this.hinh = hinh;
     }
 
-    public float getGiaBan() {
+    public double getGiaBan() {
         return giaBan;
     }
 
@@ -66,10 +69,28 @@ public class SanPham {
         this.soLuong = soLuong;
     }
 
-    
+    public String getTopping() {
+        return topping;
+    }
+
+    public void setTopping(String topping) {
+        this.topping = topping;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
 
     
     public Object[] toData(){
-        return new Object[] {idSanPham, tenSP, giaBan, soLuong, hinh};
+        return new Object[] {idSanPham, tenSP, giaBan, soLuong,topping, size};
+    }
+    
+    public Object[] toDoUong(){
+        return new Object[] {idSanPham, tenSP, giaBan,topping, size, soLuong};
     }
 }

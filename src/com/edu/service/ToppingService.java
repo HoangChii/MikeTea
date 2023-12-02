@@ -20,7 +20,7 @@ public class ToppingService {
     String sql = null;
     
     public List<Topping> getAllTP(){
-        sql = "SELECT TenTopping ,GiaTopping FROM dbo.Topping";
+        sql = "SELECT id, TenTopping FROM dbo.Topping";
         List<Topping> listtp = new ArrayList<>();
         try {
             con = DBConnect.getConnection();
@@ -28,7 +28,7 @@ public class ToppingService {
             rs = ps.executeQuery();
             while(rs.next()){
                 Topping tp = new Topping(rs.getString(1),
-                        rs.getFloat(2));
+                        rs.getString(2));
                 listtp.add(tp);
             }
             return listtp;

@@ -13,14 +13,14 @@ import java.util.Date;
 public class KhuyenMai {
     private String maKM;
     private String tenKM;
-    private Float giaTri;
-    private Date thoiGianBatDau;
-    private Date thoiGianKetThuc;
+    private int giaTri;
+    private String thoiGianBatDau;
+    private String thoiGianKetThuc;
 
     public KhuyenMai() {
     }
 
-    public KhuyenMai(String maKM, String tenKM, Float giaTri, Date thoiGianBatDau, Date thoiGianKetThuc) {
+    public KhuyenMai(String maKM, String tenKM, int giaTri, String thoiGianBatDau, String thoiGianKetThuc) {
         this.maKM = maKM;
         this.tenKM = tenKM;
         this.giaTri = giaTri;
@@ -44,27 +44,27 @@ public class KhuyenMai {
         this.tenKM = tenKM;
     }
 
-    public Float getGiaTri() {
+    public int getGiaTri() {
         return giaTri;
     }
 
-    public void setGiaTri(Float giaTri) {
+    public void setGiaTri(int giaTri) {
         this.giaTri = giaTri;
     }
 
-    public Date getThoiGianBatDau() {
+    public String getThoiGianBatDau() {
         return thoiGianBatDau;
     }
 
-    public void setThoiGianBatDau(Date thoiGianBatDau) {
+    public void setThoiGianBatDau(String thoiGianBatDau) {
         this.thoiGianBatDau = thoiGianBatDau;
     }
 
-    public Date getThoiGianKetThuc() {
+    public String getThoiGianKetThuc() {
         return thoiGianKetThuc;
     }
 
-    public void setThoiGianKetThuc(Date thoiGianKetThuc) {
+    public void setThoiGianKetThuc(String thoiGianKetThuc) {
         this.thoiGianKetThuc = thoiGianKetThuc;
     }
 

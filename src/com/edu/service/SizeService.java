@@ -3,34 +3,39 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.edu.service;
-import com.edu.entity.Loai;
+
+import com.edu.entity.Size;
+import com.edu.entity.Topping;
 import com.edu.utils.DBConnect;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  *
  * @author Hoàng Chi
  */
-public class LoaiSevice {
+public class SizeService {
     Connection con = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
     String sql = null;
     
-    public List<Loai> getAllL(){
-        sql = "SELECT  LoaiSize ,Gia FROM dbo.Loai";
-        List<Loai> listl = new ArrayList<>();
+    public List<Size> getAll(){
+        sql = "SELECT id, tensize FROM size";
+        List<Size> list = new ArrayList<>();
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while(rs.next()){
-                Loai l = new Loai(rs.getString(1),
-                        rs.getFloat(2));
-                listl.add(l);
+                Size tp = new Size(rs.getString(1),
+                        rs.getString(2));
+                list.add(tp);
             }
-            return listl;
+            return list;
         } catch (Exception e) {
             e.printStackTrace();
             return null;

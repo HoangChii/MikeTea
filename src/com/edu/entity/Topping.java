@@ -9,15 +9,23 @@ package com.edu.entity;
  * @author admin
  */
 public class Topping {
+    private String id;
     private String tenTopping;
-    private float giaTopping;
 
     public Topping() {
     }
 
-    public Topping(String tenTopping, float giaTopping) {
+    public Topping(String id, String tenTopping) {
+        this.id = id;
         this.tenTopping = tenTopping;
-        this.giaTopping = giaTopping;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTenTopping() {
@@ -28,14 +36,5 @@ public class Topping {
         this.tenTopping = tenTopping;
     }
 
-    public float getGiaTopping() {
-        return giaTopping;
-    }
-
-    public void setGiaTopping(float giaTopping) {
-        this.giaTopping = giaTopping;
-    }
-    public Object[] toData(){
-        return new Object[] {tenTopping, giaTopping};
-    }
+    
 }

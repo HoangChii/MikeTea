@@ -18,7 +18,7 @@ public class KhuyenMaiService {
     ResultSet rs = null;
     
     public List<KhuyenMai> getAll(){
-        sql = "SELECT ID ,TenKM ,GiaTri ,ThoiGianBatDau ,ThoiGianKetThuc FROM dbo.KhuyenMai";
+        sql = "SELECT * FROM dbo.KhuyenMai";
         List<KhuyenMai> listkm = new ArrayList<>();
         try{
             con = DBConnect.getConnection();
@@ -27,9 +27,9 @@ public class KhuyenMaiService {
             while(rs.next()){
                 KhuyenMai km = new KhuyenMai(rs.getString(1),
                         rs.getString(2), 
-                        rs.getFloat(3), 
-                        rs.getDate(4),
-                        rs.getDate(5));  
+                        rs.getInt(3), 
+                        rs.getString(4),
+                        rs.getString(5));  
                 listkm.add(km);
             }
             return listkm;
@@ -53,7 +53,7 @@ public class KhuyenMaiService {
     }
     
     public int updateKhuyenMai(String maKM, KhuyenMai km){
-        sql = "UPDATE KhuyenMai SET ID = ?, TenKM = ?, GiaTri =?, ThoiGianBatDau = ?, ThoiGianKetThuc = ? WHERE ID = ?";
+        sql = "UPDATE KhuyenMai SET ID = ?, TenKM = ?, GiaTri =?, TGBatDau = ?, TGKetThuc = ? WHERE ID = ?";
        try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -71,7 +71,7 @@ public class KhuyenMaiService {
     }
     
     public int addKhuyenMai(KhuyenMai km ){
-        sql = "INSERT INTO KhuyenMai (ID ,TenKM ,GiaTri ,ThoiGianBatDau ,ThoiGianKetThuc) values (?, ?, ?, ?, ?)";
+        sql = "INSERT INTO KhuyenMai (ID ,TenKM ,GiaTri ,TGBatDau ,TGKetThuc) values (?, ?, ?, ?, ?)";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -112,7 +112,7 @@ public class KhuyenMaiService {
     }
     public List<KhuyenMai> selectKhuyenMai(String maKM){
         try{
-            String sql = "SELECT ID ,TenKM ,GiaTri ,ThoiGianBatDau ,ThoiGianKetThuc FROM KhuyenMai WHERE ID LIKE ?";
+            String sql = "SELECT ID ,TenKM ,GiaTri ,TGBatDau ,TGKetThuc FROM KhuyenMai WHERE ID LIKE ?";
             try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
                 ps.setObject(1, "%" + maKM + "%");
                 try (ResultSet rs = ps.executeQuery();) {
@@ -121,9 +121,9 @@ public class KhuyenMaiService {
                         KhuyenMai km = new KhuyenMai();
                         km.setMaKM(rs.getString("ID"));
                         km.setTenKM(rs.getString("tenKM"));
-                        km.setGiaTri(rs.getFloat("GiaTri"));
-                        km.setThoiGianBatDau(rs.getDate("ThoiGianBatDau"));
-                        km.setThoiGianKetThuc(rs.getDate("ThoiGianKetThuc"));
+                        km.setGiaTri(rs.getInt("GiaTri"));
+                        km.setThoiGianBatDau(rs.getString("TGBatDau"));
+                        km.setThoiGianKetThuc(rs.getString("TGKetThuc"));
                         list.add(km);
                     }
                     return list;
@@ -136,7 +136,7 @@ public class KhuyenMaiService {
     }
     
     public KhuyenMai getByma(String ma){
-        sql = "SELECT ID ,TenKM ,GiaTri ,ThoiGianBatDau ,ThoiGianKetThuc FROM KhuyenMai WHERE ID LIKE ?";
+        sql = "SELECT ID ,TenKM ,GiaTri ,TGBatDau ,TGKetThuc FROM KhuyenMai WHERE ID LIKE ?";
         try{
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -145,9 +145,9 @@ public class KhuyenMaiService {
             while(rs.next()){
                 KhuyenMai km = new KhuyenMai(rs.getString(1),
                         rs.getString(2),
-                        rs.getFloat(3),
-                        rs.getDate(4),
-                        rs.getDate(5));  
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getString(5));  
                 return km;
             }
         }catch(Exception e){

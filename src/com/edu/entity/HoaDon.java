@@ -4,94 +4,78 @@
  */
 package com.edu.entity;
 
+import com.edu.utils.Auth;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 /**
  *
- * @author Cong Binh
+ * @author Hoàng Chi
  */
 public class HoaDon {
-
-    private String idHoaDon;
-    private float tongTien;
-    private String ngayTao;
-    private String IDNV;
-    private String khuyenMai;
-    private int soLuong;
-    private boolean xoaMen;
+    private int id;
+    private int trangThai;
+    private String ngayLap;
+    private int idDonHang;
+    private long tongTien;
 
     public HoaDon() {
     }
 
-    public HoaDon(String idHoaDon, float tongTien, String ngayTao, String IDNV, String khuyenMai, int soLuong) {
-        this.idHoaDon = idHoaDon;
+    public HoaDon(int id, int trangThai, String ngayLap, int idDonHang, long tongTien) {
+        this.id = id;
+        this.trangThai = trangThai;
+        this.ngayLap = ngayLap;
+        this.idDonHang = idDonHang;
         this.tongTien = tongTien;
-        this.ngayTao = ngayTao;
-        this.IDNV = IDNV;
-        this.khuyenMai = khuyenMai;
-        this.soLuong = soLuong;
     }
 
-    public boolean isXoaMen() {
-        return xoaMen;
+    public int getId() {
+        return id;
     }
 
-    public void setXoaMen(boolean xoaMen) {
-        this.xoaMen = xoaMen;
-    }
-    
-    
-
-    public String getIdHoaDon() {
-        return idHoaDon;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setIdHoaDon(String idHoaDon) {
-        this.idHoaDon = idHoaDon;
+    public int getTrangThai() {
+        return trangThai;
     }
 
-    public float getTongTien() {
+    public void setTrangThai(int trangThai) {
+        this.trangThai = trangThai;
+    }
+
+    public String getNgayLap() {
+        return ngayLap;
+    }
+
+    public void setNgayLap(String ngayLap) {
+        this.ngayLap = ngayLap;
+    }
+
+    public int getIdDonHang() {
+        return idDonHang;
+    }
+
+    public void setIdDonHang(int idDonHang) {
+        this.idDonHang = idDonHang;
+    }
+
+    public long getTongTien() {
         return tongTien;
     }
 
-    public void setTongTien(float tongTien) {
+    public void setTongTien(long tongTien) {
         this.tongTien = tongTien;
     }
-
-    public String getNgayTao() {
-        return ngayTao;
-    }
-
-    public void setNgayTao(String ngayTao) {
-        this.ngayTao = ngayTao;
-    }
-
-    public String getIDNV() {
-        return IDNV;
-    }
-
-    public void setIDNV(String IDNV) {
-        this.IDNV = IDNV;
-    }
-
-    public String getKhuyenMai() {
-        return khuyenMai;
-    }
-
-    public void setKhuyenMai(String khuyenMai) {
-        this.khuyenMai = khuyenMai;
-    }
-
-    public int getSoLuong() {
-        return soLuong;
-    }
-
-    public void setSoLuong(int soLuong) {
-        this.soLuong = soLuong;
-    }
-
     
-    
-    public Object[] toData() {
-        return new Object[]{idHoaDon, tongTien, ngayTao, IDNV, khuyenMai, soLuong};
+    public Object[] toDatataHD(){
+        NumberFormat x = new DecimalFormat("###.###");
+        return new Object[]{id, x.format(tongTien), ngayLap, Auth.user.getId()};
     }
-
+    
+    public Object[] toDatata1(){
+        return new Object[]{ id, ngayLap,idDonHang, tongTien};
+    }
 }
